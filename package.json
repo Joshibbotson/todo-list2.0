@@ -1,0 +1,31 @@
+{
+  "name": "todo-list2.0",
+  "version": "1.0.0",
+  "description": "A todo list created using html, css and javascript, utilising nodejs and webpack.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joshibbotson/todo-list2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joshibbotson/todo-list2.0/issues"
+  },
+  "homepage": "https://github.com/Joshibbotson/todo-list2.0#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
