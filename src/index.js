@@ -4,6 +4,5 @@ import {pushTaskToLocalStorage} from './domCreation'
 
 navBtnSelection()
 
-dom.addTaskBtn.addEventListener('click', () => {
-    return pushTaskToLocalStorage("inboxTasks", inboxArr, dom.titleInput.value, dom.dateInput.value)
-});
+
+

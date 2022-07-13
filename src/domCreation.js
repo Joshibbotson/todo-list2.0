@@ -4,10 +4,8 @@ import UI from "./UI"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
 export function pushTaskToLocalStorage (key, array, title, date) {
-
     const task = addTask(title, date)
     array.push(task)
-    console.log(array)
     localStorage.setItem(key, JSON.stringify(array))
 }
 

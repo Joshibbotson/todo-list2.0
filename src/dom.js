@@ -49,8 +49,9 @@ export function navBtnSelection(){
 });
 }
 
-
-dom.addTaskBtn.addEventListener('click', pushTaskToLocalStorage.bind('private', "inboxTasks", inboxArr, dom.titleInput.value, dom.dateInput.value))
+dom.addTaskBtn.addEventListener('click', () => {
+    return pushTaskToLocalStorage("inboxTasks", inboxArr, dom.titleInput.value, dom.dateInput.value)
+});
 
 dom.inboxBtn.addEventListener('click', () => {
     return getTaskFromLocalStorage("inboxTasks", inboxArr)
