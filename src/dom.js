@@ -1,4 +1,4 @@
-// import { pushTaskToLocalStorage, getTaskFromLocalStorage } from "./domCreation"
+import { pushTaskToLocalStorage, getTaskFromLocalStorage } from "./domCreation"
 
 export let dom = {
     nav : document.getElementById('nav'),
@@ -11,6 +11,9 @@ export let dom = {
 }
 
 export let inboxArr = []
+export let todayArr = []
+export let thisWeekArr = []
+
 let hamburgerBtnActive = true
 
 export const hamburgerBtn = document.querySelector(".hamburger-btn").addEventListener('click', () =>{
@@ -45,3 +48,18 @@ export function navBtnSelection(){
         })
 });
 }
+
+
+dom.addTaskBtn.addEventListener('click', pushTaskToLocalStorage.bind('private', "inboxTasks", inboxArr, dom.titleInput.value, dom.dateInput.value))
+
+dom.inboxBtn.addEventListener('click', () => {
+    return getTaskFromLocalStorage("inboxTasks", inboxArr)
+});
+
+dom.todayBtn.addEventListener('click', () => {
+    return getTaskFromLocalStorage("todayTasks", todayArr)
+});
+
+dom.thisWeekBtn.addEventListener('click', () => {
+    return getTaskFromLocalStorage("weekTasks", thisWeekArr)
+});

@@ -7,11 +7,8 @@ export function pushTaskToLocalStorage (key, array, title, date) {
 
     const task = addTask(title, date)
     array.push(task)
+    console.log(array)
     localStorage.setItem(key, JSON.stringify(array))
-
-    getTaskFromLocalStorage(key, array) // so this doesn't work, it loads all of the tasks each click, this should be used as
-    // a initiater on page load, to load in any logged notes for any specific array, this is ideal actually, we can make it
-    // work on button click for projects, and the nav btns as it takes a key and an array.
 }
 
 // gets all tasks from key and puts them into array, then uses a for each loop to create a new DOM element for each one by
@@ -28,7 +25,8 @@ export function getTaskFromLocalStorage (key, array) {
     const ui = new UI();
 
         tasksArr.forEach(task => { 
-            ui.createDOMTask(task.title, task.date)
+            ui.createDOMTask(key, task.title, task.date)
         })
     
 }
+
