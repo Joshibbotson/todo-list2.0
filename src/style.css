@@ -79,3 +79,22 @@ nav {
 .nav-btn-active {
     background-color: #38598b;
 }
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+}
+.task-div {
+    display: flex;
+    font-size: 1em;
+    width: 100%;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: var(--secondary-colour);
+    color: var(--tertiary-colour);
+    font-size: 1em;
+    font-weight: 800;
+
+}
