@@ -29,7 +29,7 @@ export function pushTaskToLocalStorage (key, array, title, date) {
 
     const ui = new UI();
 
-        ui.createMultipleDOMTask(array, tasksArr.indexOf(task), task.title, task.date)
+        ui.createSingleDOMTask(array, key, task.title, task.date)
 }
 
 

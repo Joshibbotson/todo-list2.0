@@ -1,8 +1,12 @@
 export default class UI {
     
     createSingleDOMTask(array, key, title, date) {
-
-        let i = array.length - 1
+        console.log(key)
+        let tasksArr = JSON.parse(localStorage.getItem(key))
+        console.log(tasksArr)
+        console.log(array)
+        let i = tasksArr.length - 1
+        console.log(i)
         const main = document.getElementById('main')
         const div = document.createElement('div')
         const btn = document.createElement('button')
