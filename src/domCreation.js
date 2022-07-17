@@ -17,19 +17,17 @@ export function createDOMTask(array) {
 }
 
 // creates a new task and pushes it into associated array and associated localstorage.//
+// if the array is empty, which happens everytime a user refreshes/leaves page, the localstorage
+// key is set as the array, otherwise localstorage will be reseting due to the empty array.//
 
 export function pushTaskToLocalStorage (key, array, title, date) {
-    console.log(title)
-    console.log(array)
+    array.length === 0 ? array = JSON.parse(localStorage.getItem(key)) : localStorage.setItem(key, JSON.stringify(array))
     const task = addTask(title, date)
     array.push(task)
     localStorage.setItem(key, JSON.stringify(array))
-
     const tasksArr = JSON.parse(localStorage.getItem(key))
-
     const ui = new UI();
-
-        ui.createSingleDOMTask(array, key, task.title, task.date)
+    ui.createSingleDOMTask(array, key, task.title, task.date)
 }
 
 
@@ -55,6 +53,7 @@ export function getTaskFromLocalStorage (key, array) {
     
 }
 
+// Will be altered at some point, redudant currently as it just clears the dom.//
 export function clearAllDomTasks() {
     const main = document.getElementById('main')
     main.innerHTML = ``;
