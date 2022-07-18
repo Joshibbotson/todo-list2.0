@@ -28,14 +28,28 @@ export default class UI {
     createMultipleDOMTask(array, index, title, date) {
         const main = document.getElementById('main')
         const div = document.createElement('div')
+        const dateAndDeleteDiv = document.createElement('div')
         const btn = document.createElement('button')
+        const dateInput = document.createElement('INPUT')
         const p = document.createElement('p')
         p.innerHTML = title + '   - ' + date
-        div.setAttribute('id', (index))
+        btn.innerHTML = "X"
+        btn.setAttribute('id', index)
+        btn.classList.add("task-delete-btn")
+
+        dateInput.setAttribute('type', 'date')
+
+        div.setAttribute('id', index)
         div.classList.add("task-div")
     
     
+        dateAndDeleteDiv.classList.add('date-and-delete-container')
+        dateAndDeleteDiv.appendChild(dateInput)
+        dateAndDeleteDiv.appendChild(btn)
+
         div.appendChild(p)
+        div.appendChild(dateAndDeleteDiv)
+        
     
         main.appendChild(div)
 

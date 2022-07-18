@@ -13,6 +13,8 @@
 }
 body {
     background-color: var(--tertiary-colour);
+    position: relative;
+    min-height: 100vh;
 }
 
 header {
@@ -48,6 +50,7 @@ nav {
     justify-content: flex-start;
     background-color: var(--secondary-colour);
     color: var(--tertiary-colour);
+    margin-bottom: 0.5em;
 }
 
 .inactive-nav {
@@ -83,8 +86,11 @@ nav {
 main {
     display: flex;
     flex-direction: column;
-    gap: 0.25em;
+    gap: 0.5em;
+    padding: 0.3em;
+    padding-bottom: 3rem;
 }
+
 .task-div {
     display: flex;
     font-size: 1em;
@@ -97,4 +103,45 @@ main {
     font-size: 1em;
     font-weight: 800;
 
+    border: 2px solid var(--primary-colour);
+
+}
+
+.date-and-delete-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    gap: 0.5em;
+    margin-right: 0px;
+}
+
+input[type="date"] {
+    border-radius: 10px;
+    border: 2px inset var(--primary-colour);
+    width: 4rem;
+}
+
+.task-delete-btn {
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    background-color: var(--tertiary-colour);
+    border-radius: 10px;
+    border: 2px inset var(--primary-colour);
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+
+    font-weight: 700;
+    font-family: var(--primary-font);
+    color: var(--tertiary-colour);
+    background-color: var(--primary-colour);
 }

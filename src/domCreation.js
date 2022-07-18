@@ -53,6 +53,17 @@ export function getTaskFromLocalStorage (key, array) {
     
 }
 
+export function deleteTask(index, key, array) {
+    array.splice(index, 1)
+    localStorage.setItem(key, JSON.stringify(array))
+    
+    const ui = new UI();
+
+    tasksArr.forEach(task => { 
+        ui.createMultipleDOMTask(array, tasksArr.indexOf(task), task.title, task.date)
+    })
+}
+
 // Will be altered at some point, redudant currently as it just clears the dom.//
 export function clearAllDomTasks() {
     const main = document.getElementById('main')
