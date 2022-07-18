@@ -13,7 +13,7 @@ export default class UI {
         const dateInput = document.createElement('INPUT')
         const p = document.createElement('p')
         p.innerHTML = title + '   - ' + date
-        div.setAttribute('id', (i))
+        div.setAttribute('id', i)
         div.classList.add("task-div")
 
         deleteBtn.innerHTML = "X"
@@ -33,6 +33,10 @@ export default class UI {
     
         main.appendChild(div)
 
+        deleteBtn.addEventListener('click', (e) => {
+            let i = e.target.id
+            return deleteTask(i, key, array)
+        })
 
 
     }
