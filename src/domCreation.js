@@ -1,5 +1,5 @@
 import { addTask } from "./addtask"
-import { dom, clickEventDeleteBtns } from "./dom"
+import { dom, clickEventDeleteBtns, inboxArr, todayArr, thisWeekArr } from "./dom"
 import UI from "./UI"
 
 
@@ -26,6 +26,7 @@ export function pushTaskToLocalStorage (key, array, title, date) {
     // localstorage to whatever the array is, if it's not empty it will execute the tertiary statement.
     // which checks to see if the array is empty, because resetting local storage if it has objects inside
     // would reset the DOM takss.
+    
     if (JSON.parse(localStorage.getItem(key) === null)) {
         localStorage.setItem(key, JSON.stringify(array))
     }
@@ -35,9 +36,11 @@ export function pushTaskToLocalStorage (key, array, title, date) {
     const task = addTask(title, date)
     array.push(task)
     localStorage.setItem(key, JSON.stringify(array))
+
     const tasksArr = JSON.parse(localStorage.getItem(key))
     const ui = new UI();
     ui.createSingleDOMTask(array, key, task.title, task.date)
+
 }
 
 
@@ -45,7 +48,7 @@ export function pushTaskToLocalStorage (key, array, title, date) {
 // creating a new UI and utilising it's inner function createDOMTask.//
 
 export function getTaskFromLocalStorage (key, array) {
-    clearAllDomTasks()
+    clearAllDomTasks(array)
 
     const i = array.length - 1
     let tasksArr;
@@ -67,7 +70,6 @@ export function getTaskFromLocalStorage (key, array) {
 // then reset the localStorage to that new array and remake the UI using the
 // UI class createMultipleDOMTask
 export function deleteTask(index, key, array) {
-
     let tasksArr;
     if (localStorage.getItem(key) === null) {
         tasksArr = []
@@ -81,8 +83,46 @@ export function deleteTask(index, key, array) {
     getTaskFromLocalStorage(key, array)
 }
 
-// Will be altered at some point, redudant currently as it just clears the dom.//
-export function clearAllDomTasks() {
+export function clearAllDomTasks(array) {
     const main = document.getElementById('main')
-    main.innerHTML = ``;
+    main.innerHTML = ` `;
+    const h1 = document.createElement('h1')
+    h1.classList.add("main-h1")
+        switch (array) {
+            case inboxArr:
+                h1.innerHTML = "Inbox"
+                main.appendChild(h1)
+                break
+            case todayArr:
+                h1.innerHTML = "Today"
+                main.appendChild(h1)
+                break
+            case thisWeekArr: 
+                h1.innerHTML = "This Week"
+                main.appendChild(h1)
+                break
+            default: 
+                h1.innerHTML = "Inbox"
+                main.appendChild(h1)
+        }
+}
+
+export function inputTitleDOM(array){
+    const main = dom.main
+    const h1 = document.createElement('h1')
+    h1.classList.add("main-h1")
+        switch (array) {
+            case inboxArr:
+                h1.innerHTML = "Inbox"
+                main.appendChild(h1)
+                break
+            case todayArr:
+                h1.innerHTML = "Today"
+                main.appendChild(h1)
+                break
+            case thisWeekArr: 
+                h1.innerHTML = "This Week"
+                main.appendChild(h1)
+                break
+        }
 }
