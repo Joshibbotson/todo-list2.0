@@ -1,41 +1,53 @@
+import { deleteTask } from "./domCreation"
+
 export default class UI {
     
     createSingleDOMTask(array, key, title, date) {
-        console.log(key)
         let tasksArr = JSON.parse(localStorage.getItem(key))
-        console.log(tasksArr)
-        console.log(array)
         let i = tasksArr.length - 1
-        console.log(i)
+
         const main = document.getElementById('main')
         const div = document.createElement('div')
-        const btn = document.createElement('button')
+        const dateAndDeleteDiv = document.createElement('div')
+        const deleteBtn = document.createElement('button')
+        const dateInput = document.createElement('INPUT')
         const p = document.createElement('p')
         p.innerHTML = title + '   - ' + date
         div.setAttribute('id', (i))
         div.classList.add("task-div")
+
+        deleteBtn.innerHTML = "X"
+        deleteBtn.setAttribute('id', i)
+        deleteBtn.classList.add("task-delete-btn")
+        dateInput.setAttribute('type', 'date')
+
     
     
+        dateAndDeleteDiv.classList.add('date-and-delete-container')
+        dateAndDeleteDiv.appendChild(dateInput)
+        dateAndDeleteDiv.appendChild(deleteBtn)
+
         div.appendChild(p)
+        div.appendChild(dateAndDeleteDiv)
+        
     
         main.appendChild(div)
 
-        // div.addEventListener('click', (e) => {
-        // })
+
 
     }
 
-    createMultipleDOMTask(array, index, title, date) {
+    createMultipleDOMTask(key, array, index, title, date) {
         const main = document.getElementById('main')
         const div = document.createElement('div')
         const dateAndDeleteDiv = document.createElement('div')
-        const btn = document.createElement('button')
+        const deleteBtn = document.createElement('button')
         const dateInput = document.createElement('INPUT')
         const p = document.createElement('p')
         p.innerHTML = title + '   - ' + date
-        btn.innerHTML = "X"
-        btn.setAttribute('id', index)
-        btn.classList.add("task-delete-btn")
+        deleteBtn.innerHTML = "X"
+        deleteBtn.setAttribute('id', index)
+        deleteBtn.classList.add("task-delete-btn")
 
         dateInput.setAttribute('type', 'date')
 
@@ -45,7 +57,7 @@ export default class UI {
     
         dateAndDeleteDiv.classList.add('date-and-delete-container')
         dateAndDeleteDiv.appendChild(dateInput)
-        dateAndDeleteDiv.appendChild(btn)
+        dateAndDeleteDiv.appendChild(deleteBtn)
 
         div.appendChild(p)
         div.appendChild(dateAndDeleteDiv)
@@ -53,8 +65,11 @@ export default class UI {
     
         main.appendChild(div)
 
-        // div.addEventListener('click', (e) => {
-        // })
+
+        deleteBtn.addEventListener('click', (e) => {
+            let i = e.target.id
+            return deleteTask(i, key, array)
+        })
 
     }
 

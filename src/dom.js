@@ -1,4 +1,4 @@
-import { pushTaskToLocalStorage, getTaskFromLocalStorage, clearAllDomTasks, clearDOMTask } from "./domCreation"
+import { pushTaskToLocalStorage, getTaskFromLocalStorage, clearAllDomTasks, clearDOMTask, deleteTask } from "./domCreation"
 
 export let dom = {
     main : document.getElementById('main'),
@@ -7,7 +7,6 @@ export let dom = {
     todayBtn : document.getElementById('today'),
     thisWeekBtn : document.getElementById('thisWeek'),
     addTaskBtn : document.getElementById('addTaskBtn'),
-    clearDomBtn : document.getElementById('clearDomBtn'),
     titleInput : document.getElementById('titleInput'),
     dateInput : document.getElementById('dateInput')
 }
@@ -55,10 +54,6 @@ dom.addTaskBtn.addEventListener('click', () => {
     return pushTaskToLocalStorage("inboxTasks", inboxArr, dom.titleInput.value, dom.dateInput.value)
 });
 
-dom.clearDomBtn.addEventListener('click', () => {
-    return clearAllDomTasks()
-})
-
 dom.inboxBtn.addEventListener('click', () => {
     return getTaskFromLocalStorage("inboxTasks", inboxArr)
 });
@@ -71,9 +66,4 @@ dom.thisWeekBtn.addEventListener('click', () => {
     return getTaskFromLocalStorage("weekTasks", thisWeekArr)
 });
 
-document.addEventListener('click', (e) => {
-    if (e.target.id === 'inboxTasks') {
-        console.log(e.target)
-    }
-    return
-})
+

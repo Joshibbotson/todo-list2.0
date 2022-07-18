@@ -1,6 +1,7 @@
 import { addTask } from "./addtask"
-import { dom } from "./dom"
+import { dom, clickEventDeleteBtns } from "./dom"
 import UI from "./UI"
+
 
 export function createDOMTask(array) {
     let i = array.length - 1
@@ -21,7 +22,16 @@ export function createDOMTask(array) {
 // key is set as the array, otherwise localstorage will be reseting due to the empty array.//
 
 export function pushTaskToLocalStorage (key, array, title, date) {
-    array.length === 0 ? array = JSON.parse(localStorage.getItem(key)) : localStorage.setItem(key, JSON.stringify(array))
+    // this if/else statement check if localstorage is empty, if it's empty it will set
+    // localstorage to whatever the array is, if it's not empty it will execute the tertiary statement.
+    // which checks to see if the array is empty, because resetting local storage if it has objects inside
+    // would reset the DOM takss.
+    if (JSON.parse(localStorage.getItem(key) === null)) {
+        localStorage.setItem(key, JSON.stringify(array))
+    }
+    else {
+        array.length === 0 ? array = JSON.parse(localStorage.getItem(key)) : localStorage.setItem(key, JSON.stringify(array))
+    }
     const task = addTask(title, date)
     array.push(task)
     localStorage.setItem(key, JSON.stringify(array))
@@ -48,20 +58,27 @@ export function getTaskFromLocalStorage (key, array) {
     const ui = new UI();
 
         tasksArr.forEach(task => { 
-            ui.createMultipleDOMTask(array, tasksArr.indexOf(task), task.title, task.date)
+            ui.createMultipleDOMTask(key, array, tasksArr.indexOf(task), task.title, task.date)
         })
     
 }
 
+//Should in theory splice a given index out of a given array
+// then reset the localStorage to that new array and remake the UI using the
+// UI class createMultipleDOMTask
 export function deleteTask(index, key, array) {
-    array.splice(index, 1)
-    localStorage.setItem(key, JSON.stringify(array))
-    
-    const ui = new UI();
 
-    tasksArr.forEach(task => { 
-        ui.createMultipleDOMTask(array, tasksArr.indexOf(task), task.title, task.date)
-    })
+    let tasksArr;
+    if (localStorage.getItem(key) === null) {
+        tasksArr = []
+    }
+    else  {
+        tasksArr = JSON.parse(localStorage.getItem(key))
+    }
+
+    tasksArr.splice(index, 1)
+    localStorage.setItem(key, JSON.stringify(tasksArr))
+    getTaskFromLocalStorage(key, array)
 }
 
 // Will be altered at some point, redudant currently as it just clears the dom.//
