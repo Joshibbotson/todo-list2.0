@@ -46,6 +46,8 @@ export function getTaskFromLocalStorage(key, array) {
             return
         case thisWeekArr:
             return
+        default:
+            break
     }
 
     const i = array.length - 1
@@ -82,6 +84,7 @@ export function deleteTask(index, key, array) {
     tasksArr.splice(index, 1)
     localStorage.setItem(key, JSON.stringify(tasksArr))
     getTaskFromLocalStorage(key, array)
+    createTaskDiv(array, key)
 }
 
 export function clearAllDomTasks(array) {
@@ -152,47 +155,54 @@ export function createInitialTaskDiv() {
 }
 
 export function createTaskDiv(array, key) {
-    const tasksArr = JSON.parse(localStorage.getItem(key))
-    const index = tasksArr.length
+    const initialAddTaskBtn = document.getElementById("initialAddTaskBtn")
+    if (initialAddTaskBtn !== null) {
+        return
+    } else {
+        const tasksArr = JSON.parse(localStorage.getItem(key))
+        const index = tasksArr.length
 
-    const div = document.createElement("div")
-    const btn = document.createElement("button")
-    const inputText = document.createElement("input")
-    const inputDate = document.createElement("input")
+        const div = document.createElement("div")
+        const btn = document.createElement("button")
+        const inputText = document.createElement("input")
+        const inputDate = document.createElement("input")
 
-    btn.classList.add("nav-btn-main")
-    btn.setAttribute("id", "addTask" + index)
-    btn.innerHTML = "+ Add Task"
+        btn.classList.add("nav-btn-main")
+        btn.setAttribute("id", "addTask" + index)
+        btn.innerHTML = "+ Add Task"
 
-    inputText.setAttribute("type", "text")
-    inputText.setAttribute("id", "titleInput")
+        inputText.setAttribute("type", "text")
+        inputText.setAttribute("id", "titleInput")
 
-    inputDate.setAttribute("type", "date")
-    inputDate.setAttribute("id", "dateInput")
+        inputDate.setAttribute("type", "date")
+        inputDate.setAttribute("id", "dateInput")
 
-    div.appendChild(btn)
-    div.appendChild(inputText)
-    div.appendChild(inputDate)
-    div.setAttribute("id", "addTask")
+        div.appendChild(btn)
+        div.appendChild(inputText)
+        div.appendChild(inputDate)
+        div.setAttribute("id", "addTask")
 
-    main.appendChild(div)
+        main.appendChild(div)
 
-    const titleInputValue = document.getElementById("titleInput")
-    const dateInputValue = document.getElementById("dateInput")
+        const titleInputValue = document.getElementById("titleInput")
+        const dateInputValue = document.getElementById("dateInput")
 
-    document.getElementById("addTask" + index).addEventListener("click", e => {
-        console.log(e.target.id)
+        document
+            .getElementById("addTask" + index)
+            .addEventListener("click", e => {
+                console.log(e.target.id)
 
-        return (
-            div.remove(document.getElementById(e.target.id)),
-            pushTaskToLocalStorage(
-                "inboxTasks",
-                inboxArr,
-                titleInputValue.value,
-                dateInputValue.value
-            )
-        )
-    })
+                return (
+                    div.remove(document.getElementById(e.target.id)),
+                    pushTaskToLocalStorage(
+                        "inboxTasks",
+                        inboxArr,
+                        titleInputValue.value,
+                        dateInputValue.value
+                    )
+                )
+            })
+    }
 }
 
 export function inputTitleDOM(array) {
