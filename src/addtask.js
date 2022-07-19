@@ -3,7 +3,7 @@ import { dom } from "./dom"
 export function addTask(title, date) {
     const task = {
         title: title,
-        date: date
+        date: date,
     }
     return task
 }
