@@ -71,52 +71,66 @@ export function getTaskFromLocalStorage(key, array) {
     })
 }
 // edits task on double click
-export function editTaskInLocalStorage(index, target, key, array) {
-    const tasksArr = JSON.parse(localStorage.getItem(key))
+export function editTaskInLocalStorage(index, target, key, array, title, date) {
+    if (document.getElementById("editTextInput") !== null) {
+        return
+    } else {
+        let currentTitle = title
+        let currentDate = date
+        const tasksArr = JSON.parse(localStorage.getItem(key))
 
-    const textInput = document.createElement("input")
-    const inputText = document.createElement("input")
-    const inputDate = document.createElement("input")
-    const deleteBtn = document.createElement("button")
-    const newContainer = document.createElement("div")
-    const existingContainer = document.getElementById(
-        "dateAndDeleteContainer" + index
-    )
-    const existingInputDate = document.getElementById("titleDate")
+        const textInput = document.createElement("input")
+        const inputText = document.createElement("input")
+        const inputDate = document.createElement("input")
+        const deleteBtn = document.createElement("button")
+        const newContainer = document.createElement("div")
+        const existingContainer = document.getElementById(
+            "dateAndDeleteContainer" + index
+        )
+        const existingInputDate = document.getElementById("titleDate")
 
-    newContainer.classList.add("date-and-delete-container")
+        newContainer.classList.add("date-and-delete-container")
 
-    deleteBtn.innerHTML = "X"
-    deleteBtn.setAttribute("id", index)
-    deleteBtn.classList.add("task-delete-btn")
+        deleteBtn.innerHTML = "X"
+        deleteBtn.setAttribute("id", index)
+        deleteBtn.classList.add("task-delete-btn")
 
-    textInput.setAttribute("type", "text")
-    textInput.setAttribute("id", "editTextInput")
+        textInput.setAttribute("type", "text")
+        textInput.setAttribute("id", "editTextInput")
 
-    inputDate.setAttribute("type", "date")
-    inputDate.setAttribute("id", "editDateInput")
+        inputDate.setAttribute("type", "date")
+        inputDate.setAttribute("id", "editDateInput")
 
-    const div = document.getElementById(index)
-    div.removeChild(target)
-    div.removeChild(existingContainer)
-    div.appendChild(textInput)
-    div.appendChild(newContainer)
-    newContainer.appendChild(inputDate)
-    newContainer.appendChild(deleteBtn)
+        const div = document.getElementById(index)
+        div.removeChild(target)
+        div.removeChild(existingContainer)
+        div.appendChild(textInput)
+        div.appendChild(newContainer)
+        newContainer.appendChild(inputDate)
+        newContainer.appendChild(deleteBtn)
 
-    const textInputValue = document.getElementById("editTextInput")
-    const dateInputValue = document.getElementById("editDateInput")
-    textInputValue.addEventListener("keydown", e => {
-        if (e.key === "Enter") {
-            return (
-                (tasksArr[index].title = textInputValue.value),
-                (tasksArr[index].date = dateInputValue.value),
-                console.log(tasksArr[index]),
-                localStorage.setItem(key, JSON.stringify(tasksArr)),
-                getTaskFromLocalStorage(key, array)
-            )
-        }
-    })
+        const textInputValue = document.getElementById("editTextInput")
+        const dateInputValue = document.getElementById("editDateInput")
+        textInputValue.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                return (
+                    (tasksArr[index].title = textInputValue.value),
+                    (tasksArr[index].date = dateInputValue.value),
+                    (currentTitle = textInputValue.value),
+                    (currentDate = dateInputValue.value),
+                    localStorage.setItem(key, JSON.stringify(tasksArr)),
+                    getTaskFromLocalStorage(key, array)
+                )
+            } else if (e.key === "Escape") {
+                return (
+                    (tasksArr[index].title = currentTitle),
+                    (tasksArr[index].date = currentDate),
+                    localStorage.setItem(key, JSON.stringify(tasksArr)),
+                    getTaskFromLocalStorage(key, array)
+                )
+            }
+        })
+    }
 }
 //Should in theory splice a given index out of a given array
 // then reset the localStorage to that new array and remake the UI using the

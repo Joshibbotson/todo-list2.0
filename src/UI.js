@@ -14,7 +14,7 @@ export default class UI {
         const dateAndDeleteDiv = document.createElement("div")
         const tickOffBtn = document.createElement("button")
         const deleteBtn = document.createElement("button")
-        const dateInput = document.createElement("INPUT")
+        const dateInput = document.createElement("input")
         const p = document.createElement("p")
         p.innerHTML = title + "   - " + date
         div.setAttribute("id", i)
@@ -30,7 +30,7 @@ export default class UI {
         dateAndDeleteDiv.classList.add("date-and-delete-container")
         dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + i)
 
-        dateAndDeleteDiv.appendChild(dateInput)
+        // dateAndDeleteDiv.appendChild(dateInput)
         dateAndDeleteDiv.appendChild(deleteBtn)
 
         div.appendChild(tickOffBtn)
@@ -52,7 +52,7 @@ export default class UI {
         p.addEventListener("dblclick", e => {
             let i = e.target.parentElement.id
             let target = e.target
-            return editTaskInLocalStorage(i, target, key, array)
+            return editTaskInLocalStorage(i, target, key, array, title, date)
         })
         createTaskDiv(array, key)
     }
@@ -79,7 +79,7 @@ export default class UI {
 
         dateAndDeleteDiv.classList.add("date-and-delete-container")
         dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + index)
-        dateAndDeleteDiv.appendChild(dateInput)
+        // dateAndDeleteDiv.appendChild(dateInput)
         dateAndDeleteDiv.appendChild(deleteBtn)
         div.appendChild(tickOffBtn)
         div.appendChild(p)
