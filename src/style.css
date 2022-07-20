@@ -186,3 +186,33 @@ footer {
     color: var(--tertiary-colour);
     background-color: var(--primary-colour);
 }
+
+/* Media screen for desktop */
+
+@media (min-width: 860px) {
+    .nav-main-wrapper {
+        display: flex;
+        /* height: 90vh; */
+        position: relative;
+        min-height: 100vh;
+    }
+    .hamburger-btn {
+        display: none;
+    }
+    nav {
+        display: flex;
+        align-items: flex-start;
+        width: 20%;
+    }
+    .inactive-nav {
+        display: flex;
+        align-items: flex-start;
+        width: 20%;
+    }
+    main {
+        display: flex;
+        padding-left: 15%;
+        padding-right: 15%;
+        width: 100%;
+    }
+}

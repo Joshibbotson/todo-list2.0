@@ -70,8 +70,17 @@ export function getTaskFromLocalStorage(key, array) {
     })
 }
 
-export function editTaskInLocalStorage(index, key, array) {
+export function editTaskInLocalStorage(index, target, key, array) {
     console.log(index)
+    const tasksArr = JSON.parse(localStorage.getItem(key))
+    console.log(tasksArr[index])
+    const textInput = document.createElement("input")
+    textInput.setAttribute("type", "text")
+    const div = document.getElementById(index)
+    div.removeChild(target)
+    div.appendChild(textInput)
+
+    // pushTaskToLocalStorage(key, array, "pass", "dateInputValue.value")
 }
 //Should in theory splice a given index out of a given array
 // then reset the localStorage to that new array and remake the UI using the
