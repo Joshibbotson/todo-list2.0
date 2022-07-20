@@ -47,6 +47,7 @@ export function getTaskFromLocalStorage(key, array) {
         case thisWeekArr:
             return
         default:
+            createInitialTaskDiv()
             break
     }
 
@@ -69,18 +70,53 @@ export function getTaskFromLocalStorage(key, array) {
         )
     })
 }
-
+// edits task on double click
 export function editTaskInLocalStorage(index, target, key, array) {
-    console.log(index)
     const tasksArr = JSON.parse(localStorage.getItem(key))
-    console.log(tasksArr[index])
+
     const textInput = document.createElement("input")
+    const inputText = document.createElement("input")
+    const inputDate = document.createElement("input")
+    const deleteBtn = document.createElement("button")
+    const newContainer = document.createElement("div")
+    const existingContainer = document.getElementById(
+        "dateAndDeleteContainer" + index
+    )
+    const existingInputDate = document.getElementById("titleDate")
+
+    newContainer.classList.add("date-and-delete-container")
+
+    deleteBtn.innerHTML = "X"
+    deleteBtn.setAttribute("id", index)
+    deleteBtn.classList.add("task-delete-btn")
+
     textInput.setAttribute("type", "text")
+    textInput.setAttribute("id", "editTextInput")
+
+    inputDate.setAttribute("type", "date")
+    inputDate.setAttribute("id", "editDateInput")
+
     const div = document.getElementById(index)
     div.removeChild(target)
+    div.removeChild(existingContainer)
     div.appendChild(textInput)
+    div.appendChild(newContainer)
+    newContainer.appendChild(inputDate)
+    newContainer.appendChild(deleteBtn)
 
-    // pushTaskToLocalStorage(key, array, "pass", "dateInputValue.value")
+    const textInputValue = document.getElementById("editTextInput")
+    const dateInputValue = document.getElementById("editDateInput")
+    textInputValue.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+            return (
+                (tasksArr[index].title = textInputValue.value),
+                (tasksArr[index].date = dateInputValue.value),
+                console.log(tasksArr[index]),
+                localStorage.setItem(key, JSON.stringify(tasksArr)),
+                getTaskFromLocalStorage(key, array)
+            )
+        }
+    })
 }
 //Should in theory splice a given index out of a given array
 // then reset the localStorage to that new array and remake the UI using the
@@ -167,6 +203,7 @@ export function createInitialTaskDiv() {
 }
 
 export function createTaskDiv(array, key) {
+    console.log("createTaskDiv")
     const initialAddTaskBtn = document.getElementById("initialAddTaskBtn")
     if (initialAddTaskBtn !== null) {
         return

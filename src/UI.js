@@ -28,6 +28,8 @@ export default class UI {
         dateInput.setAttribute("type", "date")
 
         dateAndDeleteDiv.classList.add("date-and-delete-container")
+        dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + i)
+
         dateAndDeleteDiv.appendChild(dateInput)
         dateAndDeleteDiv.appendChild(deleteBtn)
 
@@ -76,6 +78,7 @@ export default class UI {
         div.classList.add("task-div")
 
         dateAndDeleteDiv.classList.add("date-and-delete-container")
+        dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + index)
         dateAndDeleteDiv.appendChild(dateInput)
         dateAndDeleteDiv.appendChild(deleteBtn)
         div.appendChild(tickOffBtn)

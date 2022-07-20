@@ -192,7 +192,6 @@ footer {
 @media (min-width: 860px) {
     .nav-main-wrapper {
         display: flex;
-        /* height: 90vh; */
         position: relative;
         min-height: 100vh;
     }
