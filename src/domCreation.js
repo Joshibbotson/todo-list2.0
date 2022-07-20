@@ -70,6 +70,9 @@ export function getTaskFromLocalStorage(key, array) {
     })
 }
 
+export function editTaskInLocalStorage(index, key, array) {
+    console.log(index)
+}
 //Should in theory splice a given index out of a given array
 // then reset the localStorage to that new array and remake the UI using the
 // UI class createMultipleDOMTask
