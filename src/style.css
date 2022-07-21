@@ -17,6 +17,7 @@
 p {
     font-family: var(--primary-font);
     color: var(--text-colour);
+    cursor: pointer;
 }
 
 body {
@@ -166,9 +167,9 @@ input[type="date"] {
     display: flex;
     justify-content: flex-end;
     width: auto;
-    background-color: var(--tertiary-colour);
+    color: firebrick;
+    font-weight: 800;
     border-radius: 10px;
-    border: 2px inset var(--primary-colour);
 }
 
 footer {

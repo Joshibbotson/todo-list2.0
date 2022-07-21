@@ -49,7 +49,7 @@ export default class UI {
             return deleteTask(i, key, array)
         })
 
-        p.addEventListener("dblclick", e => {
+        p.addEventListener("click", e => {
             let i = e.target.parentElement.id
             let target = e.target
             return editTaskInLocalStorage(i, target, key, array, title, date)
@@ -96,7 +96,7 @@ export default class UI {
             let i = e.target.id
             return deleteTask(i, key, array)
         })
-        p.addEventListener("dblclick", e => {
+        p.addEventListener("click", e => {
             let i = e.target.parentElement.id
             let target = e.target
             return editTaskInLocalStorage(i, target, key, array)

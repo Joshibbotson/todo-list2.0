@@ -70,17 +70,29 @@ export function getTaskFromLocalStorage(key, array) {
         )
     })
 }
-// edits task on double click
+// edits task on task title click
 export function editTaskInLocalStorage(index, target, key, array, title, date) {
     if (document.getElementById("editTextInput") !== null) {
         return
     } else {
-        let currentTitle = title
-        let currentDate = date
         const tasksArr = JSON.parse(localStorage.getItem(key))
 
+        switch (title) {
+            case undefined:
+                title = tasksArr[index].title
+                break
+            default:
+                break
+        }
+
+        switch (date) {
+            case undefined:
+                date = tasksArr[index].date
+                break
+            default:
+                break
+        }
         const textInput = document.createElement("input")
-        const inputText = document.createElement("input")
         const inputDate = document.createElement("input")
         const deleteBtn = document.createElement("button")
         const newContainer = document.createElement("div")
@@ -97,6 +109,7 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
 
         textInput.setAttribute("type", "text")
         textInput.setAttribute("id", "editTextInput")
+        textInput.setAttribute("value", title)
 
         inputDate.setAttribute("type", "date")
         inputDate.setAttribute("id", "editDateInput")
@@ -111,20 +124,18 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
 
         const textInputValue = document.getElementById("editTextInput")
         const dateInputValue = document.getElementById("editDateInput")
-        textInputValue.addEventListener("keydown", e => {
+        div.addEventListener("keydown", e => {
             if (e.key === "Enter") {
                 return (
                     (tasksArr[index].title = textInputValue.value),
                     (tasksArr[index].date = dateInputValue.value),
-                    (currentTitle = textInputValue.value),
-                    (currentDate = dateInputValue.value),
                     localStorage.setItem(key, JSON.stringify(tasksArr)),
                     getTaskFromLocalStorage(key, array)
                 )
             } else if (e.key === "Escape") {
                 return (
-                    (tasksArr[index].title = currentTitle),
-                    (tasksArr[index].date = currentDate),
+                    (tasksArr[index].title = title),
+                    (tasksArr[index].date = date),
                     localStorage.setItem(key, JSON.stringify(tasksArr)),
                     getTaskFromLocalStorage(key, array)
                 )
