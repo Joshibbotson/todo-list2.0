@@ -7,6 +7,7 @@ import {
     thisWeekArr,
 } from "./dom"
 import UI from "./UI"
+import { filterArrayByDate } from "./filter"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
 // if the array is empty, which happens everytime a user refreshes/leaves page, the localstorage
@@ -15,7 +16,6 @@ import UI from "./UI"
 // localstorage to whatever the array is, if it's not empty it will execute the tertiary statement.
 // which checks to see if the array is empty, because resetting local storage if it has objects inside
 // would reset the DOM takss.
-
 export function pushTaskToLocalStorage(key, array, title, date) {
     if (JSON.parse(localStorage.getItem(key) === null)) {
         localStorage.setItem(key, JSON.stringify(array))
@@ -43,9 +43,9 @@ export function getTaskFromLocalStorage(key, array) {
             createInitialTaskDiv()
             break
         case todayArr:
-            return
+            break
         case thisWeekArr:
-            return
+            break
         default:
             createInitialTaskDiv()
             break
@@ -72,6 +72,8 @@ export function getTaskFromLocalStorage(key, array) {
 }
 // edits task on task title click
 export function editTaskInLocalStorage(index, target, key, array, title, date) {
+    filterArrayByDate(date)
+    // console.log(date)
     if (document.getElementById("editTextInput") !== null) {
         return
     } else {
@@ -113,10 +115,13 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
 
         inputDate.setAttribute("type", "date")
         inputDate.setAttribute("id", "editDateInput")
+        inputDate.setAttribute("value", date)
 
         const div = document.getElementById(index)
+
         div.removeChild(target)
         div.removeChild(existingContainer)
+
         div.appendChild(textInput)
         div.appendChild(newContainer)
         newContainer.appendChild(inputDate)
@@ -157,7 +162,15 @@ export function deleteTask(index, key, array) {
     tasksArr.splice(index, 1)
     localStorage.setItem(key, JSON.stringify(tasksArr))
     getTaskFromLocalStorage(key, array)
-    createTaskDiv(array, key)
+    switch (array) {
+        case inboxArr:
+            createTaskDiv(array, key)
+            break
+        case todayArr:
+            break
+        case thisWeekArr:
+            break
+    }
 }
 
 export function clearAllDomTasks(array) {

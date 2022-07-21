@@ -22,6 +22,8 @@ export let inboxArr = []
 export let todayArr = []
 export let thisWeekArr = []
 
+pushTaskToLocalStorage("todayTasks", todayArr, "Wash pots", "Today")
+
 let hamburgerBtnActive = true
 
 export const hamburgerBtn = document

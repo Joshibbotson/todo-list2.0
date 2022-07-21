@@ -14,9 +14,13 @@ export default class UI {
         const dateAndDeleteDiv = document.createElement("div")
         const tickOffBtn = document.createElement("button")
         const deleteBtn = document.createElement("button")
-        const dateInput = document.createElement("input")
+        // const dateInput = document.createElement("input")
         const p = document.createElement("p")
-        p.innerHTML = title + "   - " + date
+        const pDate = document.createElement("p")
+
+        p.innerHTML = title
+        pDate.innerHTML = date
+
         div.setAttribute("id", i)
         div.classList.add("task-div")
 
@@ -25,12 +29,12 @@ export default class UI {
         deleteBtn.classList.add("task-delete-btn")
         tickOffBtn.setAttribute("id", i)
         tickOffBtn.classList.add("tick-off-btn")
-        dateInput.setAttribute("type", "date")
+        // dateInput.setAttribute("type", "date")
 
         dateAndDeleteDiv.classList.add("date-and-delete-container")
         dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + i)
 
-        // dateAndDeleteDiv.appendChild(dateInput)
+        dateAndDeleteDiv.appendChild(pDate)
         dateAndDeleteDiv.appendChild(deleteBtn)
 
         div.appendChild(tickOffBtn)
@@ -54,6 +58,11 @@ export default class UI {
             let target = e.target
             return editTaskInLocalStorage(i, target, key, array, title, date)
         })
+        pDate.addEventListener("click", e => {
+            let i = e.target.parentElement.id
+            let target = e.target
+            return editTaskInLocalStorage(i, target, key, array, title, date)
+        })
         createTaskDiv(array, key)
     }
 
@@ -63,23 +72,28 @@ export default class UI {
         const dateAndDeleteDiv = document.createElement("div")
         const deleteBtn = document.createElement("button")
         const tickOffBtn = document.createElement("button")
-        const dateInput = document.createElement("INPUT")
+        // const dateInput = document.createElement("input")
         const p = document.createElement("p")
-        p.innerHTML = title + "   - " + date
+        const pDate = document.createElement("p")
+        p.innerHTML = title
+        pDate.innerHTML = date
         deleteBtn.innerHTML = "X"
         deleteBtn.setAttribute("id", index)
         deleteBtn.classList.add("task-delete-btn")
         tickOffBtn.setAttribute("id", index)
         tickOffBtn.classList.add("tick-off-btn")
 
-        dateInput.setAttribute("type", "date")
+        // dateInput.setAttribute("type", "date")
+
+        pDate.setAttribute("id", "date" + index)
 
         div.setAttribute("id", index)
         div.classList.add("task-div")
 
         dateAndDeleteDiv.classList.add("date-and-delete-container")
         dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + index)
-        // dateAndDeleteDiv.appendChild(dateInput)
+
+        dateAndDeleteDiv.appendChild(pDate)
         dateAndDeleteDiv.appendChild(deleteBtn)
         div.appendChild(tickOffBtn)
         div.appendChild(p)
@@ -99,8 +113,29 @@ export default class UI {
         p.addEventListener("click", e => {
             let i = e.target.parentElement.id
             let target = e.target
-            return editTaskInLocalStorage(i, target, key, array)
+            console.log(i)
+            console.log(target)
+
+            return editTaskInLocalStorage(i, target, key, array, title, date)
         })
+
+        // pDate.addEventListener("click", e => {
+        //     let i = e.target.parentElement.id
+        //     let target = e.target
+        //     console.log(i)
+        //     console.log(target)
+
+        //     return editTaskInLocalStorage(i, target, key, array, title, date)
+        // })
+
+        // WIP
+        // div.addEventListener("mouseover", () => {
+        //     if (div.style.backgroundColor === "black") {
+        //         div.style.backgroundColor = "none"
+        //     } else {
+        //         div.style.backgroundColor = "black"
+        //     }
+        // })
     }
 
     clearDOMTask(event, key, array) {

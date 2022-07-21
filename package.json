@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Joshibbotson/todo-list2.0#readme",
   "dependencies": {
+    "date-fns": "^2.28.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
