@@ -22,8 +22,6 @@ export let inboxArr = []
 export let todayArr = []
 export let thisWeekArr = []
 
-pushTaskToLocalStorage("todayTasks", todayArr, "Wash pots", "Today")
-
 let hamburgerBtnActive = true
 
 export const hamburgerBtn = document
@@ -66,5 +64,5 @@ dom.todayBtn.addEventListener("click", () => {
 })
 
 dom.thisWeekBtn.addEventListener("click", () => {
-    return getTaskFromLocalStorage("weekTasks", thisWeekArr)
+    return getTaskFromLocalStorage("thisWeekTasks", thisWeekArr)
 })

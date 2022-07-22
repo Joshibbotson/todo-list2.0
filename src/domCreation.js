@@ -8,6 +8,7 @@ import {
 } from "./dom"
 import UI from "./UI"
 import { filterArrayByDate } from "./filter"
+import { format, isToday, parseISO } from "date-fns"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
 // if the array is empty, which happens everytime a user refreshes/leaves page, the localstorage
@@ -24,13 +25,24 @@ export function pushTaskToLocalStorage(key, array, title, date) {
             ? (array = JSON.parse(localStorage.getItem(key)))
             : localStorage.setItem(key, JSON.stringify(array))
     }
+
     const task = addTask(title, date)
     array.push(task)
     localStorage.setItem(key, JSON.stringify(array))
 
-    const tasksArr = JSON.parse(localStorage.getItem(key))
     const ui = new UI()
-    ui.createSingleDOMTask(array, key, task.title, task.date)
+
+    switch (key) {
+        case "inboxTasks":
+            ui.createSingleDOMTask(array, key, task.title, task.date)
+            break
+        case "todayTasks":
+            break
+        case "thisWeekTasks":
+            break
+        default:
+            ui.createSingleDOMTask(array, key, task.title, task.date)
+    }
 }
 
 // gets all tasks from key and puts them into array, then uses a for each loop to create a new DOM element for each one by
@@ -72,7 +84,6 @@ export function getTaskFromLocalStorage(key, array) {
 }
 // edits task on task title click
 export function editTaskInLocalStorage(index, target, key, array, title, date) {
-    filterArrayByDate(date)
     // console.log(date)
     if (document.getElementById("editTextInput") !== null) {
         return
@@ -228,15 +239,23 @@ export function createInitialTaskDiv() {
         .getElementById("initialAddTaskBtn")
         .addEventListener("click", e => {
             console.log("clicked init")
-            return (
-                div.remove(document.getElementById("initialAddTaskBtn")),
-                pushTaskToLocalStorage(
+            if (dateInputValue.value === "") {
+                console.log("nothing")
+                return pushTaskToLocalStorage(
                     "inboxTasks",
                     inboxArr,
                     titleInputValue.value,
                     dateInputValue.value
                 )
-            )
+            } else {
+                return (
+                    div.remove(document.getElementById(e.target.id)),
+                    filterArrayByDate(
+                        titleInputValue.value,
+                        dateInputValue.value
+                    )
+                )
+            }
         })
 }
 
@@ -278,16 +297,22 @@ export function createTaskDiv(array, key) {
             .getElementById("addTask" + index)
             .addEventListener("click", e => {
                 console.log(e.target.id)
-
-                return (
-                    div.remove(document.getElementById(e.target.id)),
-                    pushTaskToLocalStorage(
+                if (dateInputValue.value === false) {
+                    return pushTaskToLocalStorage(
                         "inboxTasks",
                         inboxArr,
                         titleInputValue.value,
                         dateInputValue.value
                     )
-                )
+                } else {
+                    return (
+                        div.remove(document.getElementById(e.target.id)),
+                        filterArrayByDate(
+                            titleInputValue.value,
+                            dateInputValue.value
+                        )
+                    )
+                }
             })
     }
 }
