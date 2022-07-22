@@ -8,23 +8,31 @@ import {
     thisWeekArr,
 } from "./dom"
 import UI from "./UI"
-import { format, isToday, parseISO } from "date-fns"
+import { format, isToday, parseISO, differenceInCalendarDays } from "date-fns"
 
 export function filterArrayByDate(title, date) {
-    console.log(date)
     if (date === null) {
         pushTaskToLocalStorage("inboxTasks", inboxArr, title, date)
     } else {
         const newDate = new Date(date)
+        const today = new Date()
         const formattedDate = format(newDate, "yyyy/dd/MM")
-        console.log(isToday(parseISO(date)))
+        const formattedToday = format(today, "yyyy/dd/MM")
 
-        if (isToday(parseISO(date)) === true) {
+        const differenceInDays = differenceInCalendarDays(today, newDate)
+        console.log(differenceInDays)
+        if (differenceInDays === 0) {
             console.log("true it is today")
             pushTaskToLocalStorage("todayTasks", todayArr, title, date)
             pushTaskToLocalStorage("inboxTasks", inboxArr, title, date)
-        } else if (isToday(parseISO(date)) === false) {
-            console.log("nope not today")
+        }
+        if (differenceInDays < 7 && differenceInDays > 1) {
+            console.log("this week")
+
+            pushTaskToLocalStorage("thisWeekTasks", thisWeekArr, title, date)
+            pushTaskToLocalStorage("inboxTasks", inboxArr, title, date)
+        } else if (differenceInDays > 7) {
+            console.log("longer than a week")
 
             pushTaskToLocalStorage("inboxTasks", inboxArr, title, date)
         }
