@@ -11,7 +11,7 @@ import UI from "./UI"
 import { format, isToday, parseISO, differenceInCalendarDays } from "date-fns"
 
 export function filterArrayOnTaskCreate(title, date) {
-    if (date === null) {
+    if (date === "") {
         pushTaskToLocalStorage("inboxTasks", inboxArr, title, date)
     } else {
         const newDate = new Date(date)
@@ -27,7 +27,7 @@ export function filterArrayOnTaskCreate(title, date) {
             pushTaskToLocalStorage("todayTasks", todayArr, title, date)
             pushTaskToLocalStorage("inboxTasks", inboxArr, title, date)
         }
-        if (differenceInDays < 7 && differenceInDays >= 1) {
+        if (differenceInDays <= 7 && differenceInDays >= 1) {
             console.log("this week")
 
             pushTaskToLocalStorage("thisWeekTasks", thisWeekArr, title, date)

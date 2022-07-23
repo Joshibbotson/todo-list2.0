@@ -226,6 +226,7 @@ export function clearAllDomTasks(array) {
 }
 
 export function createInitialTaskDiv() {
+    console.log
     const div = document.createElement("div")
     const btn = document.createElement("button")
     const inputText = document.createElement("input")
@@ -254,22 +255,21 @@ export function createInitialTaskDiv() {
         .getElementById("initialAddTaskBtn")
         .addEventListener("click", e => {
             console.log("clicked init")
-            if (dateInputValue.value === "") {
-                console.log("nothing")
-                return pushTaskToLocalStorage(
-                    "inboxTasks",
-                    inboxArr,
-                    titleInputValue.value,
-                    dateInputValue.value
-                )
-            } else {
-                return (
-                    div.remove(document.getElementById(e.target.id)),
+            if (
+                (dateInputValue.value === "" && titleInputValue.value !== "") ||
+                (dateInputValue.value !== "" && titleInputValue.value !== "")
+            ) {
+                div.remove(document.getElementById(e.target.id)),
                     filterArrayOnTaskCreate(
                         titleInputValue.value,
                         dateInputValue.value
                     )
-                )
+            }
+            if (
+                (dateInputValue.value !== "" && titleInputValue.value === "") ||
+                (titleInputValue.value === "" && dateInputValue.value === "")
+            ) {
+                alert("must have title!") // must switch that out with a function Modal.
             }
         })
 }
@@ -312,21 +312,32 @@ export function createTaskDiv(array, key) {
             .getElementById("addTask" + index)
             .addEventListener("click", e => {
                 console.log(e.target.id)
-                if (dateInputValue.value === false) {
-                    return pushTaskToLocalStorage(
-                        "inboxTasks",
-                        inboxArr,
-                        titleInputValue.value,
-                        dateInputValue.value
-                    )
-                } else {
-                    return (
+                if (
+                    (dateInputValue.value === "" &&
+                        titleInputValue.value !== "") ||
+                    (dateInputValue.value !== "" &&
+                        titleInputValue.value !== "")
+                ) {
+                    console.log("creattask"),
                         div.remove(document.getElementById(e.target.id)),
                         filterArrayOnTaskCreate(
                             titleInputValue.value,
                             dateInputValue.value
                         )
-                    )
+                    // return pushTaskToLocalStorage(
+                    //     "inboxTasks",
+                    //     inboxArr,
+                    //     titleInputValue.value,
+                    //     dateInputValue.value
+                    // )
+                }
+                if (
+                    (dateInputValue.value === "" &&
+                        titleInputValue.value === "") ||
+                    (dateInputValue.value !== "" &&
+                        titleInputValue.value === "")
+                ) {
+                    alert("Needs a title!") // must switch that out with a function Modal.
                 }
             })
     }
