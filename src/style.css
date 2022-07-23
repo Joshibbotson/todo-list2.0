@@ -8,6 +8,7 @@
     --primary-colour: #38598b;
     --secondary-colour: #a2a8d3;
     --tertiary-colour: #e7eaf6;
+    --highlight-colour: #969bc4;
     --text-colour: white;
     --primary-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
@@ -18,8 +19,8 @@ p {
     display: flex;
     align-items: center;
     font-family: var(--primary-font);
-    color: var(--text-colour);
     cursor: pointer;
+    color: inherit;
 }
 
 body {
@@ -122,15 +123,15 @@ main {
     gap: 1rem;
     font-size: 1em;
     width: 100%;
-    border: none;
     padding: 0.5rem;
     border-radius: 10px;
-    background-color: var(--secondary-colour);
-    color: var(--tertiary-colour);
     font-size: 1em;
     font-weight: 800;
-
-    border: 2px solid var(--primary-colour);
+    color: var(--primary-colour);
+}
+.task-div:hover {
+    background-color: var(--highlight-colour);
+    color: var(--text-colour);
 }
 
 input[type="text"] {
