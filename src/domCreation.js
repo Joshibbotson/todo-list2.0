@@ -7,7 +7,11 @@ import {
     thisWeekArr,
 } from "./dom"
 import UI from "./UI"
-import { filterArray, filterArrayOnTaskCreate } from "./filter"
+import {
+    filterArrayOnDelete,
+    filterArrayOnEdit,
+    filterArrayOnTaskCreate,
+} from "./filter"
 import { format, isToday, parseISO } from "date-fns"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
@@ -148,8 +152,7 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
                         title,
                         date,
                         textInputValue.value,
-                        dateInputValue.value,
-                        array
+                        dateInputValue.value
                     ),
                     (tasksArr[index].title = textInputValue.value),
                     (tasksArr[index].date = dateInputValue.value),
@@ -177,6 +180,10 @@ export function deleteTask(index, key, array) {
     } else {
         tasksArr = JSON.parse(localStorage.getItem(key))
     }
+    const title = tasksArr[index].title
+    const date = tasksArr[index].date
+
+    filterArrayOnDelete(tasksArr, index, title, date)
 
     tasksArr.splice(index, 1)
     localStorage.setItem(key, JSON.stringify(tasksArr))

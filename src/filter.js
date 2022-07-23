@@ -49,8 +49,7 @@ export function filterArrayOnEdit(
     oldTitle,
     oldDate,
     newTitle,
-    newDate,
-    array
+    newDate
 ) {
     const inboxTasks = JSON.parse(localStorage.getItem("inboxTasks"))
     const todayTasks = JSON.parse(localStorage.getItem("todayTasks"))
@@ -105,4 +104,61 @@ export function filterArrayOnEdit(
         }
     }
     return
+}
+
+export function filterArrayOnDelete(
+    masterKey,
+    masterIndex,
+    masterTitle,
+    masterDate
+) {
+    const inboxTasks = JSON.parse(localStorage.getItem("inboxTasks"))
+    const todayTasks = JSON.parse(localStorage.getItem("todayTasks"))
+    const thisWeekTasks = JSON.parse(localStorage.getItem("thisWeekTasks"))
+    if (
+        inboxTasks.some(object => object.title === masterTitle) === true &&
+        inboxTasks.some(object => object.date === masterDate) === true
+    ) {
+        for (let i = 0; i < inboxTasks.length; i++) {
+            if (
+                inboxTasks[i].title === masterKey[masterIndex].title &&
+                inboxTasks[i].date === masterKey[masterIndex].date
+            ) {
+                inboxTasks.splice(i, 1)
+                localStorage.setItem("inboxTasks", JSON.stringify(inboxTasks))
+            }
+        }
+    }
+    if (
+        todayTasks.some(object => object.title === masterTitle) === true &&
+        todayTasks.some(object => object.date === masterDate) === true
+    ) {
+        for (let i = 0; i < todayTasks.length; i++) {
+            if (
+                todayTasks[i].title === masterKey[masterIndex].title &&
+                todayTasks[i].date === masterKey[masterIndex].date
+            ) {
+                console.log("we made it deep")
+                todayTasks.splice(i, 1)
+                localStorage.setItem("todayTasks", JSON.stringify(todayTasks))
+            }
+        }
+    }
+    if (
+        thisWeekTasks.some(object => object.title === masterTitle) === true &&
+        thisWeekTasks.some(object => object.date === masterDate) === true
+    ) {
+        for (let i = 0; i < thisWeekTasks.length; i++) {
+            if (
+                thisWeekTasks[i].title === masterKey[masterIndex].title &&
+                thisWeekTasks[i].date === masterKey[masterIndex].date
+            ) {
+                thisWeekTasks.splice(i, 1)
+                localStorage.setItem(
+                    "thisWeekTasks",
+                    JSON.stringify(thisWeekTasks)
+                )
+            }
+        }
+    }
 }
