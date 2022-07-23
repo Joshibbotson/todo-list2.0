@@ -7,7 +7,7 @@ import {
     thisWeekArr,
 } from "./dom"
 import UI from "./UI"
-import { filterArrayByDate } from "./filter"
+import { filterArray, filterArrayOnTaskCreate } from "./filter"
 import { format, isToday, parseISO } from "date-fns"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
@@ -84,7 +84,6 @@ export function getTaskFromLocalStorage(key, array) {
 }
 // edits task on task title click
 export function editTaskInLocalStorage(index, target, key, array, title, date) {
-    // console.log(date)
     if (document.getElementById("editTextInput") !== null) {
         return
     } else {
@@ -143,6 +142,15 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         div.addEventListener("keydown", e => {
             if (e.key === "Enter") {
                 return (
+                    filterArrayOnEdit(
+                        tasksArr,
+                        index,
+                        title,
+                        date,
+                        textInputValue.value,
+                        dateInputValue.value,
+                        array
+                    ),
                     (tasksArr[index].title = textInputValue.value),
                     (tasksArr[index].date = dateInputValue.value),
                     localStorage.setItem(key, JSON.stringify(tasksArr)),
@@ -250,7 +258,7 @@ export function createInitialTaskDiv() {
             } else {
                 return (
                     div.remove(document.getElementById(e.target.id)),
-                    filterArrayByDate(
+                    filterArrayOnTaskCreate(
                         titleInputValue.value,
                         dateInputValue.value
                     )
@@ -307,7 +315,7 @@ export function createTaskDiv(array, key) {
                 } else {
                     return (
                         div.remove(document.getElementById(e.target.id)),
-                        filterArrayByDate(
+                        filterArrayOnTaskCreate(
                             titleInputValue.value,
                             dateInputValue.value
                         )
