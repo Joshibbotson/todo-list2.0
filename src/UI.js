@@ -20,6 +20,8 @@ export default class UI {
 
         p.innerHTML = title
         pDate.innerHTML = date
+        pDate.classList.add("date-p")
+        pDate.setAttribute("id", "date" + i)
 
         div.setAttribute("id", i)
         div.classList.add("task-div")
@@ -86,6 +88,7 @@ export default class UI {
         // dateInput.setAttribute("type", "date")
 
         pDate.setAttribute("id", "date" + index)
+        pDate.classList.add("date-p")
 
         div.setAttribute("id", index)
         div.classList.add("task-div")
