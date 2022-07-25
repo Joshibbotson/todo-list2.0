@@ -48,15 +48,16 @@ export function filterArrayOnTaskCreate(title, date) {
 
 // logic should be take params of old tilte/date and new title/date
 // search arrays for old title/date, if same object present, update and set localstorage
-// with new title/date, else do nothing.
+// with new title/date, else do nothing. Maste
 export function filterArrayOnEdit(
-    masterKey,
+    masterArr,
     masterIndex,
     oldTitle,
     oldDate,
     newTitle,
     newDate
 ) {
+    console.log(masterArr)
     const inboxTasks = JSON.parse(localStorage.getItem("inboxTasks"))
     const todayTasks = JSON.parse(localStorage.getItem("todayTasks"))
     const thisWeekTasks = JSON.parse(localStorage.getItem("thisWeekTasks"))
@@ -66,18 +67,18 @@ export function filterArrayOnEdit(
     ) {
         for (let i = 0; i < inboxTasks.length; i++) {
             if (
-                inboxTasks[i].title === masterKey[masterIndex].title &&
-                inboxTasks[i].date === masterKey[masterIndex].date
+                inboxTasks[i].title === oldTitle &&
+                inboxTasks[i].date === oldDate
             ) {
                 inboxTasks[i].title = newTitle
                 inboxTasks[i].date = newDate
                 localStorage.setItem("inboxTasks", JSON.stringify(inboxTasks))
-                // filterArrayOnDateChange(
-                //     masterKey,
-                //     masterIndex,
-                //     newTitle,
-                //     newDate
-                // )
+                filterArrayOnDateChange(
+                    masterArr,
+                    masterIndex,
+                    newTitle,
+                    newDate
+                )
             }
         }
     }
@@ -87,18 +88,18 @@ export function filterArrayOnEdit(
     ) {
         for (let i = 0; i < todayTasks.length; i++) {
             if (
-                todayTasks[i].title === masterKey[masterIndex].title &&
-                todayTasks[i].date === masterKey[masterIndex].date
+                todayTasks[i].title === oldTitle &&
+                todayTasks[i].date === oldDate
             ) {
                 todayTasks[i].title = newTitle
                 todayTasks[i].date = newDate
                 localStorage.setItem("todayTasks", JSON.stringify(todayTasks))
-                // filterArrayOnDateChange(
-                //     masterKey,
-                //     masterIndex,
-                //     newTitle,
-                //     newDate
-                // )
+                filterArrayOnDateChange(
+                    masterArr,
+                    masterIndex,
+                    newTitle,
+                    newDate
+                )
             }
         }
     }
@@ -109,8 +110,8 @@ export function filterArrayOnEdit(
     ) {
         for (let i = 0; i < thisWeekTasks.length; i++) {
             if (
-                thisWeekTasks[i].title === masterKey[masterIndex].title &&
-                thisWeekTasks[i].date === masterKey[masterIndex].date
+                thisWeekTasks[i].title === oldTitle &&
+                thisWeekTasks[i].date === oldDate
             ) {
                 thisWeekTasks[i].title = newTitle
                 thisWeekTasks[i].date = newDate
@@ -118,16 +119,16 @@ export function filterArrayOnEdit(
                     "thisWeekTasks",
                     JSON.stringify(thisWeekTasks)
                 )
-                // filterArrayOnDateChange(
-                //     masterKey,
-                //     masterIndex,
-                //     newTitle,
-                //     newDate
-                // )
+                filterArrayOnDateChange(
+                    masterArr,
+                    masterIndex,
+                    newTitle,
+                    newDate
+                )
             }
         }
-        filterArrayOnDateChange(masterKey, masterIndex, newTitle, newDate)
     }
+    console.log("N/A")
     return
 }
 
@@ -146,8 +147,8 @@ export function filterArrayOnDelete(
     ) {
         for (let i = 0; i < inboxTasks.length; i++) {
             if (
-                inboxTasks[i].title === masterKey[masterIndex].title &&
-                inboxTasks[i].date === masterKey[masterIndex].date
+                inboxTasks[i].title === masterTitle &&
+                inboxTasks[i].date === masterDate
             ) {
                 inboxTasks.splice(i, 1)
                 localStorage.setItem("inboxTasks", JSON.stringify(inboxTasks))
@@ -160,8 +161,8 @@ export function filterArrayOnDelete(
     ) {
         for (let i = 0; i < todayTasks.length; i++) {
             if (
-                todayTasks[i].title === masterKey[masterIndex].title &&
-                todayTasks[i].date === masterKey[masterIndex].date
+                todayTasks[i].title === masterTitle &&
+                todayTasks[i].date === masterDate
             ) {
                 console.log("we made it deep")
                 todayTasks.splice(i, 1)
@@ -198,8 +199,12 @@ export function filterArrayOnDelete(
 // at this point in incorrect tasks should have been removed
 // we now need to add in the task to any array it should be in
 // which arguably we could use filterArrayOnTaskCreate in theory...
+
+//Notes:
+// if you put a date outside of the specified range it will not let you edit again...
+
 export function filterArrayOnDateChange(
-    masterKey,
+    masterArr,
     masterIndex,
     masterTitle,
     masterDate
@@ -211,6 +216,7 @@ export function filterArrayOnDateChange(
     const newDate = new Date(masterDate)
     const today = new Date()
     const differenceInDays = differenceInCalendarDays(today, newDate)
+    console.log(differenceInDays)
     // ////////
     // DELETE SECTION//
     /////////
@@ -220,6 +226,7 @@ export function filterArrayOnDateChange(
     ) {
         switch (differenceInDays) {
             case 0:
+                console.log("0 days for certain")
                 break
             default:
                 for (let i = 0; i < todayTasks.length; i++) {
@@ -227,10 +234,17 @@ export function filterArrayOnDateChange(
                         todayTasks[i].title === masterTitle &&
                         todayTasks[i].date === masterDate
                     ) {
-                        todayTasks.splice(i, 1)
-                        localStorage.setItem(
-                            "todayTasks",
-                            JSON.stringify(todayTasks)
+                        const arr = JSON.parse(
+                            localStorage.getItem("todayTasks")
+                        )
+                        console.log(todayTasks)
+                        arr.splice(i, 1)
+                        localStorage.setItem("todayTasks", JSON.stringify(arr))
+                        console.log(todayTasks)
+
+                        console.log("DELETE TODAY SHOULD HAPPEN")
+                        console.log(
+                            JSON.parse(localStorage.getItem("todayTasks"))
                         )
                     }
                 }
@@ -256,7 +270,9 @@ export function filterArrayOnDateChange(
                         thisWeekTasks[i].title === masterTitle &&
                         thisWeekTasks[i].date === masterDate
                     ) {
+                        console.log(thisWeekTasks)
                         thisWeekTasks.splice(i, 1)
+                        console.log(thisWeekTasks)
                         localStorage.setItem(
                             "thisWeekTasks",
                             JSON.stringify(thisWeekTasks)
@@ -264,18 +280,27 @@ export function filterArrayOnDateChange(
                     }
                 }
         }
+    } else {
+        console.log("nap")
     }
 
-    // DELETE SECTION END//
-    // ADD SECTION BEGIN//
+    // // DELETE SECTION END//
+    // // ADD SECTION BEGIN//
 
     if (differenceInDays === 0) {
         switch (presentInArray(todayTasks, masterTitle, masterDate)) {
             case true:
                 break
             case false:
+                console.log("yeeehaw")
                 pushTaskToLocalStorage(
                     "todayTasks",
+                    todayArr,
+                    masterTitle,
+                    masterDate
+                )
+                pushTaskToLocalStorage(
+                    "thisWeekTasks",
                     todayArr,
                     masterTitle,
                     masterDate
@@ -289,6 +314,31 @@ export function filterArrayOnDateChange(
             case false:
                 pushTaskToLocalStorage(
                     "thisWeekTasks",
+                    thisWeekArr,
+                    masterTitle,
+                    masterDate
+                )
+        }
+    }
+    if (differenceInDays < 0) {
+        switch (presentInArray(inboxTasks, masterTitle, masterDate)) {
+            case true:
+                break
+            case false:
+                pushTaskToLocalStorage(
+                    "inboxTasks",
+                    thisWeekArr,
+                    masterTitle,
+                    masterDate
+                )
+        }
+    } else if (differenceInDays > 7) {
+        switch (presentInArray(inboxTasks, masterTitle, masterDate)) {
+            case true:
+                break
+            case false:
+                pushTaskToLocalStorage(
+                    "inboxTasks",
                     thisWeekArr,
                     masterTitle,
                     masterDate

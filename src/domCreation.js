@@ -170,6 +170,7 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         })
     }
 }
+
 //Should in theory splice a given index out of a given array
 // then reset the localStorage to that new array and remake the UI using the
 // UI class createMultipleDOMTask
