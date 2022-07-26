@@ -8,13 +8,19 @@ import {
     thisWeekArr,
 } from "./dom"
 import UI from "./UI"
-import { format, isToday, parseISO, differenceInCalendarDays } from "date-fns"
+import {
+    format,
+    isToday,
+    parseISO,
+    differenceInCalendarDays,
+    differenceInDays,
+} from "date-fns"
 
 export function filterArrayOnTaskCreate(title, date) {
     if (date === "") {
         pushTaskToLocalStorage("inboxTasks", inboxArr, title, date)
     } else {
-        const newDate = new Date(date)
+        let newDate = new Date(date)
         const today = new Date()
         // const formattedDate = format(newDate, "yyyy/dd/MM")
         // const formattedToday = format(today, "yyyy/dd/MM")
@@ -58,9 +64,17 @@ export function filterArrayOnEdit(
     newDate
 ) {
     console.log(masterArr)
+
+    //Arrays taken from localstorage
     const inboxTasks = JSON.parse(localStorage.getItem("inboxTasks"))
     const todayTasks = JSON.parse(localStorage.getItem("todayTasks"))
     const thisWeekTasks = JSON.parse(localStorage.getItem("thisWeekTasks"))
+
+    // date determination
+    const newDateInput = new Date(newDate)
+    const today = new Date()
+    const differenceInDays = differenceInCalendarDays(today, newDateInput)
+
     if (
         inboxTasks.some(object => object.title === oldTitle) === true &&
         inboxTasks.some(object => object.date === oldDate) === true
@@ -73,12 +87,12 @@ export function filterArrayOnEdit(
                 inboxTasks[i].title = newTitle
                 inboxTasks[i].date = newDate
                 localStorage.setItem("inboxTasks", JSON.stringify(inboxTasks))
-                filterArrayOnDateChange(
-                    masterArr,
-                    masterIndex,
-                    newTitle,
-                    newDate
-                )
+                // filterArrayOnDateChange(
+                //     masterArr,
+                //     masterIndex,
+                //     newTitle,
+                //     newDate
+                // )
             }
         }
     }
@@ -86,6 +100,28 @@ export function filterArrayOnEdit(
         todayTasks.some(object => object.title === oldTitle) === true &&
         todayTasks.some(object => object.date === oldDate) === true
     ) {
+        //     console.log("passed if ststemtn")
+        //     switch (differenceInDays) {
+        //         case 0:
+        //             console.log("case is 0 so break")
+        //             break
+        //         default:
+        //             console.log("case is default")
+        //             for (let i = 0; i < todayTasks.length; i++) {
+        //                 if (
+        //                     todayTasks[i].title === oldTitle &&
+        //                     todayTasks[i].date === oldDate
+        //                 ) {
+        //                     todayTasks[i].title = newTitle
+        //                     todayTasks[i].date = newDate
+        //                     todayTasks.splice(i, 1)
+        //                     localStorage.setItem(
+        //                         "todayTasks",
+        //                         JSON.stringify(todayTasks)
+        //                     )
+        //                 }
+        //             }
+        // }
         for (let i = 0; i < todayTasks.length; i++) {
             if (
                 todayTasks[i].title === oldTitle &&
@@ -94,12 +130,6 @@ export function filterArrayOnEdit(
                 todayTasks[i].title = newTitle
                 todayTasks[i].date = newDate
                 localStorage.setItem("todayTasks", JSON.stringify(todayTasks))
-                filterArrayOnDateChange(
-                    masterArr,
-                    masterIndex,
-                    newTitle,
-                    newDate
-                )
             }
         }
     }
@@ -119,17 +149,16 @@ export function filterArrayOnEdit(
                     "thisWeekTasks",
                     JSON.stringify(thisWeekTasks)
                 )
-                filterArrayOnDateChange(
-                    masterArr,
-                    masterIndex,
-                    newTitle,
-                    newDate
-                )
+                // filterArrayOnDateChange(
+                //     masterArr,
+                //     masterIndex,
+                //     newTitle,
+                //     newDate
+                // )
             }
         }
     }
-    console.log("N/A")
-    return
+    filterArrayOnDateChange(masterArr, masterIndex, newTitle, newDate)
 }
 
 export function filterArrayOnDelete(
@@ -216,7 +245,6 @@ export function filterArrayOnDateChange(
     const newDate = new Date(masterDate)
     const today = new Date()
     const differenceInDays = differenceInCalendarDays(today, newDate)
-    console.log(differenceInDays)
     // ////////
     // DELETE SECTION//
     /////////
@@ -280,31 +308,34 @@ export function filterArrayOnDateChange(
                     }
                 }
         }
-    } else {
-        console.log("nap")
     }
-
+    console.log(differenceInDays)
     // // DELETE SECTION END//
     // // ADD SECTION BEGIN//
-
     if (differenceInDays === 0) {
         switch (presentInArray(todayTasks, masterTitle, masterDate)) {
             case true:
                 break
             case false:
-                console.log("yeeehaw")
                 pushTaskToLocalStorage(
                     "todayTasks",
                     todayArr,
                     masterTitle,
                     masterDate
                 )
-                pushTaskToLocalStorage(
-                    "thisWeekTasks",
-                    todayArr,
-                    masterTitle,
-                    masterDate
-                )
+                switch (
+                    presentInArray(thisWeekTasks, masterTitle, masterDate)
+                ) {
+                    case true:
+                        break
+                    case false:
+                        pushTaskToLocalStorage(
+                            "thisWeekTasks",
+                            todayArr,
+                            masterTitle,
+                            masterDate
+                        )
+                }
         }
     }
     if (differenceInDays <= 7 && differenceInDays >= 1) {
@@ -352,10 +383,8 @@ function presentInArray(array, title, date) {
         array.some(object => object.title === title) &&
         array.some(object => object.date === date)
     ) {
-        console.log("true")
         return true
     } else {
-        console.log("false")
         return false
     }
 }

@@ -154,9 +154,6 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
                         textInputValue.value,
                         dateInputValue.value
                     ),
-                    (tasksArr[index].title = textInputValue.value),
-                    (tasksArr[index].date = dateInputValue.value),
-                    localStorage.setItem(key, JSON.stringify(tasksArr)),
                     getTaskFromLocalStorage(key, array)
                 )
             } else if (e.key === "Escape") {
