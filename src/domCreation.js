@@ -224,7 +224,6 @@ export function clearAllDomTasks(array) {
 }
 
 export function createInitialTaskDiv() {
-    console.log
     const div = document.createElement("div")
     const btn = document.createElement("button")
     const inputText = document.createElement("input")
@@ -236,9 +235,13 @@ export function createInitialTaskDiv() {
 
     inputText.setAttribute("type", "text")
     inputText.setAttribute("id", "initialTitleInput")
+    inputText.classList.add("input-text")
 
     inputDate.setAttribute("type", "date")
     inputDate.setAttribute("id", "initialDateInput")
+    inputDate.classList.add("input-date")
+
+    div.classList.add("add-task-container")
 
     div.appendChild(btn)
     div.appendChild(inputText)
@@ -292,9 +295,13 @@ export function createTaskDiv(array, key) {
 
         inputText.setAttribute("type", "text")
         inputText.setAttribute("id", "titleInput")
+        inputText.classList.add("input-text")
 
         inputDate.setAttribute("type", "date")
         inputDate.setAttribute("id", "dateInput")
+        inputDate.classList.add("input-date")
+
+        div.classList.add("add-task-container")
 
         div.appendChild(btn)
         div.appendChild(inputText)
@@ -316,18 +323,11 @@ export function createTaskDiv(array, key) {
                     (dateInputValue.value !== "" &&
                         titleInputValue.value !== "")
                 ) {
-                    console.log("creattask"),
-                        div.remove(document.getElementById(e.target.id)),
+                    div.remove(document.getElementById(e.target.id)),
                         filterArrayOnTaskCreate(
                             titleInputValue.value,
                             dateInputValue.value
                         )
-                    // return pushTaskToLocalStorage(
-                    //     "inboxTasks",
-                    //     inboxArr,
-                    //     titleInputValue.value,
-                    //     dateInputValue.value
-                    // )
                 }
                 if (
                     (dateInputValue.value === "" &&

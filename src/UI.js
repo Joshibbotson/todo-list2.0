@@ -4,11 +4,13 @@ import {
     editTaskInLocalStorage,
 } from "./domCreation"
 import { format, isToday, parseISO, differenceInCalendarDays } from "date-fns"
+import { da } from "date-fns/locale"
 
 export default class UI {
     createSingleDOMTask(array, key, title, date) {
         let tasksArr = JSON.parse(localStorage.getItem(key))
         let i = tasksArr.length - 1
+        let formattedDate = new Date(date).toUTCString()
 
         const main = document.getElementById("main")
         const div = document.createElement("div")
@@ -61,15 +63,17 @@ export default class UI {
             let target = e.target
             return editTaskInLocalStorage(i, target, key, array, title, date)
         })
-        pDate.addEventListener("click", e => {
-            let i = e.target.parentElement.id
-            let target = e.target
-            return editTaskInLocalStorage(i, target, key, array, title, date)
-        })
+        // pDate.addEventListener("click", e => {
+        //     let i = e.target.parentElement.id
+        //     let target = e.target
+        //     return editTaskInLocalStorage(i, target, key, array, title, date)
+        // })
         createTaskDiv(array, key)
     }
 
     createMultipleDOMTask(key, array, index, title, date) {
+        let formattedDate = new Date(date).toUTCString()
+
         const main = document.getElementById("main")
         const div = document.createElement("div")
         const dateAndDeleteDiv = document.createElement("div")

@@ -246,7 +246,7 @@ export function filterArrayOnDateChange(
                 }
         }
     }
-    if (thisWeek === true) {
+    if (thisWeek === true && today === false) {
         switch (presentInArray(thisWeekTasks, masterTitle, masterDate)) {
             case true:
                 break
