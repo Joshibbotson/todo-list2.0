@@ -63,7 +63,7 @@ header {
     color: var(--text-colour);
 }
 
-nav {
+.active-nav {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -72,7 +72,7 @@ nav {
     margin-bottom: 0.5em;
 }
 
-.inactive-nav {
+nav {
     display: none;
 }
 
@@ -223,6 +223,7 @@ input[type="date"] {
     border-radius: 10px;
     border: 2px inset var(--primary-colour);
     width: 4rem;
+    text-align: center;
 }
 
 .task-delete-btn {
@@ -256,7 +257,7 @@ footer {
     .nav-main-wrapper {
         display: flex;
         position: relative;
-        min-height: 100vh;
+        min-height: 90vh;
     }
 
     .hamburger-btn {
@@ -268,9 +269,11 @@ footer {
         align-items: flex-start;
         width: 20%;
         padding: 1rem;
+        background-color: var(--secondary-colour);
+        color: var(--text-colour);
     }
 
-    .inactive-nav {
+    .active-nav {
         display: flex;
         align-items: flex-start;
         width: 20%;

@@ -29,9 +29,9 @@ export const hamburgerBtn = document
     .addEventListener("click", () => {
         hamburgerBtnActive = !hamburgerBtnActive
         if (hamburgerBtnActive === true) {
-            dom.nav.classList.remove("inactive-nav")
+            dom.nav.classList.remove("active-nav")
         } else if (hamburgerBtnActive === false) {
-            dom.nav.classList.add("inactive-nav")
+            dom.nav.classList.add("active-nav")
         }
     })
 
