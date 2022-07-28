@@ -302,4 +302,12 @@ footer {
         width: 23%;
         margin-right: 0.1rem;
     }
+    input[type="text"].input-text {
+        border-radius: 0px;
+        border: none;
+        border: 1px solid var(--primary-colour);
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        width: 60%;
+    }
 }

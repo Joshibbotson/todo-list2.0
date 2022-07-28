@@ -185,7 +185,7 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
                 )
             }
         })
-        inputDate.addEventListener("change", () => {
+        inputDate.addEventListener("blur", () => {
             filterArrayOnEdit(
                 tasksArr,
                 index,
@@ -338,7 +338,7 @@ export function createTaskDiv(array, key) {
             }
             return
         })
-        inputDate.addEventListener("change", e => {
+        inputDate.addEventListener("blur", e => {
             if (
                 (dateInputValue.value === "" && titleInputValue.value !== "") ||
                 (dateInputValue.value !== "" && titleInputValue.value !== "")
