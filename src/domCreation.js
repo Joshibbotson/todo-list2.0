@@ -54,18 +54,6 @@ export function pushTaskToLocalStorage(key, array, title, date) {
 
 export function getTaskFromLocalStorage(key, array) {
     clearAllDomTasks(array)
-    switch (array) {
-        case inboxArr:
-            createInitialTaskDiv()
-            break
-        case todayArr:
-            break
-        case thisWeekArr:
-            break
-        default:
-            createInitialTaskDiv()
-            break
-    }
 
     const i = array.length - 1
     let tasksArr
@@ -85,6 +73,18 @@ export function getTaskFromLocalStorage(key, array) {
             task.date
         )
     })
+    switch (array) {
+        case inboxArr:
+            createTaskDiv(array, key)
+            break
+        case todayArr:
+            break
+        case thisWeekArr:
+            break
+        default:
+            createTaskDiv(array, key)
+            break
+    }
 }
 // edits task on task title click
 export function editTaskInLocalStorage(index, target, key, array, title, date) {
@@ -165,6 +165,39 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
                 )
             }
         })
+        textInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                return (
+                    filterArrayOnEdit(
+                        tasksArr,
+                        index,
+                        title,
+                        date,
+                        textInputValue.value,
+                        dateInputValue.value
+                    ),
+                    getTaskFromLocalStorage(key, array)
+                )
+            } else if (e.key === "Escape") {
+                return (
+                    (tasksArr[index].title = title),
+                    (tasksArr[index].date = date),
+                    localStorage.setItem(key, JSON.stringify(tasksArr)),
+                    getTaskFromLocalStorage(key, array)
+                )
+            }
+        })
+        inputDate.addEventListener("input", () => {
+            filterArrayOnEdit(
+                tasksArr,
+                index,
+                title,
+                date,
+                textInputValue.value,
+                dateInputValue.value
+            ),
+                getTaskFromLocalStorage(key, array)
+        })
     }
 }
 
@@ -186,15 +219,6 @@ export function deleteTask(index, key, array) {
     tasksArr.splice(index, 1)
     localStorage.setItem(key, JSON.stringify(tasksArr))
     getTaskFromLocalStorage(key, array)
-    switch (array) {
-        case inboxArr:
-            createTaskDiv(array, key)
-            break
-        case todayArr:
-            break
-        case thisWeekArr:
-            break
-    }
 }
 
 export function clearAllDomTasks(array) {
@@ -223,66 +247,17 @@ export function clearAllDomTasks(array) {
     }
 }
 
-export function createInitialTaskDiv() {
-    const div = document.createElement("div")
-    const btn = document.createElement("button")
-    const inputText = document.createElement("input")
-    const inputDate = document.createElement("input")
-
-    btn.classList.add("nav-btn-main")
-    btn.setAttribute("id", "initialAddTaskBtn")
-    btn.innerHTML = "+ Add Task"
-
-    inputText.setAttribute("type", "text")
-    inputText.setAttribute("id", "initialTitleInput")
-    inputText.classList.add("input-text")
-
-    inputDate.setAttribute("type", "date")
-    inputDate.setAttribute("id", "initialDateInput")
-    inputDate.classList.add("input-date")
-
-    div.classList.add("add-task-container")
-
-    div.appendChild(btn)
-    div.appendChild(inputText)
-    div.appendChild(inputDate)
-
-    main.appendChild(div)
-
-    const titleInputValue = document.getElementById("initialTitleInput")
-    const dateInputValue = document.getElementById("initialDateInput")
-
-    document
-        .getElementById("initialAddTaskBtn")
-        .addEventListener("click", e => {
-            console.log("clicked init")
-            if (
-                (dateInputValue.value === "" && titleInputValue.value !== "") ||
-                (dateInputValue.value !== "" && titleInputValue.value !== "")
-            ) {
-                div.remove(document.getElementById(e.target.id)),
-                    filterArrayOnTaskCreate(
-                        titleInputValue.value,
-                        dateInputValue.value
-                    )
-            }
-            if (
-                (dateInputValue.value !== "" && titleInputValue.value === "") ||
-                (titleInputValue.value === "" && dateInputValue.value === "")
-            ) {
-                alert("must have title!") // must switch that out with a function Modal.
-            }
-        })
-}
-
+// creates " + Add task" with text input and date input
 export function createTaskDiv(array, key) {
     console.log("createTaskDiv")
     const initialAddTaskBtn = document.getElementById("initialAddTaskBtn")
-    if (initialAddTaskBtn !== null) {
-        return
+    const tasksArr = JSON.parse(localStorage.getItem(key))
+    let index
+    if (tasksArr === null) {
+        index = ""
     } else {
         const tasksArr = JSON.parse(localStorage.getItem(key))
-        const index = tasksArr.length
+        index = tasksArr.length
 
         const div = document.createElement("div")
         const btn = document.createElement("button")
@@ -338,6 +313,49 @@ export function createTaskDiv(array, key) {
                     alert("Needs a title!") // must switch that out with a function Modal.
                 }
             })
+        inputText.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                if (
+                    (dateInputValue.value === "" &&
+                        titleInputValue.value !== "") ||
+                    (dateInputValue.value !== "" &&
+                        titleInputValue.value !== "")
+                ) {
+                    div.remove(document.getElementById(e.target.id)),
+                        filterArrayOnTaskCreate(
+                            titleInputValue.value,
+                            dateInputValue.value
+                        )
+                }
+                if (
+                    (dateInputValue.value === "" &&
+                        titleInputValue.value === "") ||
+                    (dateInputValue.value !== "" &&
+                        titleInputValue.value === "")
+                ) {
+                    alert("Needs a title!") // must switch that out with a function Modal.
+                }
+            }
+            return
+        })
+        inputDate.addEventListener("input", e => {
+            if (
+                (dateInputValue.value === "" && titleInputValue.value !== "") ||
+                (dateInputValue.value !== "" && titleInputValue.value !== "")
+            ) {
+                div.remove(document.getElementById(e.target.id)),
+                    filterArrayOnTaskCreate(
+                        titleInputValue.value,
+                        dateInputValue.value
+                    )
+            }
+            if (
+                (dateInputValue.value === "" && titleInputValue.value === "") ||
+                (dateInputValue.value !== "" && titleInputValue.value === "")
+            ) {
+                alert("Needs a title!") // must switch that out with a function Modal.
+            }
+        })
     }
 }
 
