@@ -185,7 +185,7 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
                 )
             }
         })
-        inputDate.addEventListener("input", () => {
+        inputDate.addEventListener("change", () => {
             filterArrayOnEdit(
                 tasksArr,
                 index,
