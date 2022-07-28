@@ -115,8 +115,6 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         const existingContainer = document.getElementById(
             "dateAndDeleteContainer" + index
         )
-        const existingInputDate = document.getElementById("titleDate")
-
         newContainer.classList.add("date-and-delete-container")
 
         deleteBtn.innerHTML = "X"
@@ -286,6 +284,7 @@ export function createTaskDiv(array, key) {
         main.appendChild(div)
 
         const titleInputValue = document.getElementById("titleInput")
+        document.getElementById("titleInput").focus()
         const dateInputValue = document.getElementById("dateInput")
 
         document
@@ -335,6 +334,7 @@ export function createTaskDiv(array, key) {
                 ) {
                     alert("Needs a title!") // must switch that out with a function Modal.
                 }
+                document.getElementById("titleInput").focus()
             }
             return
         })
