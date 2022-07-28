@@ -43,6 +43,8 @@ export function filterArrayOnEdit(
     if (
         inboxTasks.some(object => object.title === oldTitle) === true &&
         inboxTasks.some(object => object.date === oldDate) === true
+        // (inboxTasks.some(object => object.title === oldTitle) === true &&
+        //     inboxTasks.some(object => object.date === "") === true)
     ) {
         for (let i = 0; i < inboxTasks.length; i++) {
             if (
