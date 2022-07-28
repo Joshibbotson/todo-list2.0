@@ -338,7 +338,7 @@ export function createTaskDiv(array, key) {
             }
             return
         })
-        inputDate.addEventListener("input", e => {
+        inputDate.addEventListener("change", e => {
             if (
                 (dateInputValue.value === "" && titleInputValue.value !== "") ||
                 (dateInputValue.value !== "" && titleInputValue.value !== "")
