@@ -228,11 +228,16 @@ input[type="date"] {
 
 .task-delete-btn {
     display: flex;
+    visibility: hidden;
     justify-content: flex-end;
     width: auto;
     color: firebrick;
     font-weight: 800;
     border-radius: 10px;
+}
+
+.task-div:hover .task-delete-btn {
+    visibility: visible;
 }
 
 footer {
@@ -310,4 +315,14 @@ footer {
         border-bottom-left-radius: 4px;
         width: 60%;
     }
+}
+@media (prefers-color-scheme: dark) {
+    body.dark-scheme {
+        background-color: #333;
+        color: white;
+    }
+    /* .night.dark-scheme {
+        background: black;
+        color: #ddd;
+    } */
 }

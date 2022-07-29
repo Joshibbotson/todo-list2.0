@@ -22,7 +22,7 @@ export default class UI {
         const pDate = document.createElement("p")
 
         p.innerHTML = title
-        pDate.innerHTML = date
+        pDate.innerText = date
         pDate.classList.add("date-p")
         pDate.setAttribute("id", "date" + i)
 
@@ -83,7 +83,7 @@ export default class UI {
         const p = document.createElement("p")
         const pDate = document.createElement("p")
         p.innerHTML = title
-        pDate.innerHTML = date
+        pDate.innerText = date
         deleteBtn.innerHTML = "X"
         deleteBtn.setAttribute("id", index)
         deleteBtn.classList.add("task-delete-btn")
@@ -135,15 +135,31 @@ export default class UI {
 
         //     return editTaskInLocalStorage(i, target, key, array, title, date)
         // })
+    }
 
-        // WIP
-        // div.addEventListener("mouseover", () => {
-        //     if (div.style.backgroundColor === "black") {
-        //         div.style.backgroundColor = "none"
-        //     } else {
-        //         div.style.backgroundColor = "black"
-        //     }
-        // })
+    createModal(text) {
+        const body = document.getElementsByTagName("body")
+        const div = document.createElement("div")
+        div.innerHTML = ` 
+    <div class="modal" id="modal1">
+        <div class="modal-dialog">
+            <header class="modal-header">
+                Hello!
+                <button
+                    class="close-modal"
+                    aria-label="close modal"
+                    data-close
+                >
+                    ✕
+                </button>
+            </header>
+            <section class="modal-content">
+                ${text}
+            </section>
+            <footer class="modal-footer">Josh Ibbotson</footer>
+        </div>
+    </div>`
+        body.appendChild(div)
     }
 
     clearDOMTask(event, key, array) {

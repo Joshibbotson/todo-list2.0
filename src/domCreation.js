@@ -247,7 +247,6 @@ export function clearAllDomTasks(array) {
 
 // creates " + Add task" with text input and date input
 export function createTaskDiv(array, key) {
-    console.log("createTaskDiv")
     const initialAddTaskBtn = document.getElementById("initialAddTaskBtn")
     const tasksArr = JSON.parse(localStorage.getItem(key))
     let index
