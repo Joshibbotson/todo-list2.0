@@ -162,6 +162,22 @@ export default class UI {
         body.appendChild(div)
     }
 
+    darkModeToggle() {
+        const header = document.getElementsByTagName("header")
+        const mainH1 = document.querySelectorAll("h1")
+        const footer = document.getElementsByTagName("footer")
+        footer[0].style.backgroundColor = "rgb(40, 40, 40)"
+        mainH1[1].style.color = "white"
+        header[0].style.backgroundColor = "rgb(40, 40, 40)"
+        const nav = document.getElementsByTagName("nav")
+        nav[0].style.backgroundColor = "rgb(64, 64, 64)"
+
+        const main = document.getElementsByTagName("main")
+        const body = document.getElementsByTagName("body")
+        main[0].style.backgroundColor = "rgb(150, 150, 150)"
+        body[0].style.backgroundColor = "rgb(150, 150, 150)"
+    }
+
     clearDOMTask(event, key, array) {
         // array.forEach(object => {
         //     if (object === event)

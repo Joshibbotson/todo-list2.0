@@ -2,7 +2,7 @@ import { hamburgerBtn, navBtnSelection, dom } from "./dom"
 import { inboxArr } from "./dom"
 import { pushTaskToLocalStorage } from "./domCreation"
 import { getTaskFromLocalStorage } from "./domCreation"
-
+import UI from "./UI"
 navBtnSelection()
 getTaskFromLocalStorage("inboxTasks", inboxArr)
 

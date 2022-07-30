@@ -28,6 +28,7 @@ p {
 .date-p {
     word-break: normal;
     width: max-content;
+    cursor: default;
 }
 
 body {
@@ -197,7 +198,8 @@ input[type="text"] {
     width: 1.5rem;
     height: 1.5rem;
 
-    border: 2px inset var(--primary-colour);
+    border: 2px solid var(--primary-colour);
+    cursor: pointer;
 
     transition: all 200ms;
 }
@@ -221,7 +223,7 @@ input[type="text"] {
 
 input[type="date"] {
     border-radius: 10px;
-    border: 2px inset var(--primary-colour);
+    border: 2px solid var(--primary-colour);
     width: 4rem;
     text-align: center;
 }
@@ -234,6 +236,8 @@ input[type="date"] {
     color: firebrick;
     font-weight: 800;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .task-div:hover .task-delete-btn {
@@ -317,12 +321,88 @@ footer {
     }
 }
 @media (prefers-color-scheme: dark) {
-    body.dark-scheme {
-        background-color: #333;
-        color: white;
+    :root {
+        --nearBlack: rgb(40, 40, 40);
+        --navGrey: rgb(64, 64, 64);
+        --lightGrey: rgb(150, 150, 150);
+        --textColour: white;
     }
-    /* .night.dark-scheme {
-        background: black;
-        color: #ddd;
-    } */
+
+    body {
+        background-color: var(--lightGrey);
+        color: var(--textColour);
+    }
+
+    header {
+        background-color: var(--nearBlack);
+    }
+
+    nav {
+        background-color: var(--navGrey);
+    }
+
+    .active-nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background-color: var(--navGrey);
+        margin-bottom: 0.5em;
+    }
+
+    main {
+        background-color: var(--lightGrey);
+        color: var(--textColour);
+    }
+
+    footer {
+        background-color: var(--nearBlack);
+    }
+
+    footer p {
+        color: var(--textColour);
+    }
+
+    p,
+    .main-h1 {
+        color: inherit;
+    }
+
+    .tick-off-btn {
+        border: 2px solid var(--textColour);
+        background: none;
+    }
+
+    .task-div {
+        color: var(--textColour);
+    }
+
+    .task-div:hover {
+        background-color: rgb(170, 170, 170);
+        /* color: var(--nearBlack); */
+    }
+
+    .nav-btn-active {
+        background-color: rgb(200, 200, 200);
+        color: var(--nearBlack);
+    }
+
+    .add-task-container {
+        background-color: var(--navGrey);
+        border: 2px solid var(--nearBlack);
+    }
+
+    input[type="text"].input-text,
+    input[type="text"] {
+        color: var(--nearBlack);
+        border: 1px solid var(--nearBlack);
+    }
+
+    input[type="date"] {
+        border: 2px solid var(--nearBlack);
+    }
+
+    .nav-btn-main {
+        background-color: rgb(100, 100, 100);
+        border: 1px solid var(--nearBlack);
+    }
 }

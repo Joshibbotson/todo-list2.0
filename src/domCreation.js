@@ -63,7 +63,7 @@ export function getTaskFromLocalStorage(key, array) {
         tasksArr = JSON.parse(localStorage.getItem(key))
     }
     const ui = new UI()
-
+    // ui.darkModeToggle()
     tasksArr.forEach(task => {
         ui.createMultipleDOMTask(
             key,
