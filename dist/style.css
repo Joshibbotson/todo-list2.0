@@ -260,6 +260,9 @@ input[type="date"] {
     border: 2px solid var(--primary-colour);
     width: 4rem;
     text-align: center;
+    color: var(--primary-colour);
+    font-family: var(--primary-font);
+    font-weight: 700;
 }
 
 .task-delete-btn {
@@ -446,6 +449,7 @@ footer > * {
 
     input[type="date"] {
         border: 2px solid var(--nearBlack);
+        color: var(--nearBlack);
     }
     .add-btn-main {
         background-color: rgb(100, 100, 100);
