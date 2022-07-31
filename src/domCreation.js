@@ -264,14 +264,12 @@ export function createTaskDiv(array, key) {
 
         openAddTaskBtn.addEventListener("click", e => {
             openAddTaskBtn.style.display = "none"
-            const div = document.createElement("div")
-            const btn = document.createElement("button")
+            const mainContainer = document.createElement("div")
+            mainContainer.classList.add("add-task-container")
+
+            const inputContainer = document.createElement("div")
             const inputText = document.createElement("input")
             const inputDate = document.createElement("input")
-
-            btn.classList.add("nav-btn-main")
-            btn.setAttribute("id", "addTask" + index)
-            btn.innerHTML = "+ Add Task"
 
             inputText.setAttribute("type", "text")
             inputText.setAttribute("id", "titleInput")
@@ -281,99 +279,98 @@ export function createTaskDiv(array, key) {
             inputDate.setAttribute("id", "dateInput")
             inputDate.classList.add("input-date")
 
-            div.classList.add("add-task-container")
+            inputContainer.appendChild(inputText)
+            inputContainer.appendChild(inputDate)
+            inputContainer.classList.add("input-container")
 
-            div.appendChild(btn)
-            div.appendChild(inputText)
-            div.appendChild(inputDate)
-            div.setAttribute("id", "addTask")
+            const btnContainer = document.createElement("div")
+            const addBtn = document.createElement("button")
+            const cancelBtn = document.createElement("button")
 
-            main.appendChild(div)
+            addBtn.classList.add("add-btn-main")
+            addBtn.setAttribute("id", "addTask" + index)
+            addBtn.innerHTML = "+ Add Task"
+
+            cancelBtn.classList.add("cancel-btn-main")
+            cancelBtn.innerHTML = "cancel"
+
+            btnContainer.appendChild(addBtn)
+            btnContainer.appendChild(cancelBtn)
+            btnContainer.classList.add("btn-container")
+
+            mainContainer.appendChild(inputContainer)
+            mainContainer.appendChild(btnContainer)
+            mainContainer.setAttribute("id", "addTask")
+
+            main.appendChild(mainContainer)
+            document.getElementById("titleInput").focus()
 
             const titleInputValue = document.getElementById("titleInput")
-            document.getElementById("titleInput").focus()
             const dateInputValue = document.getElementById("dateInput")
 
-            // document.addEventListener("click", e => {
-            //     if (!div.contains(e.target)) {
-            //         openAddTaskBtn.style.display = "flex"
-            //     }
-            // })
-
+            cancelBtn.addEventListener("click", e => {
+                openAddTaskBtn.style.display = "flex"
+                mainContainer.style.display = "none"
+            })
             document
                 .getElementById("addTask" + index)
                 .addEventListener("click", e => {
                     console.log(e.target.id)
-                    if (
-                        (dateInputValue.value === "" &&
-                            titleInputValue.value !== "") ||
-                        (dateInputValue.value !== "" &&
-                            titleInputValue.value !== "")
-                    ) {
-                        div.remove(document.getElementById(e.target.id)),
+                    if (titleEmpty(titleInputValue, dateInputValue) === false) {
+                        mainContainer.remove(
+                            document.getElementById(e.target.id)
+                        ),
                             filterArrayOnTaskCreate(
                                 titleInputValue.value,
                                 dateInputValue.value
                             )
                     }
-                    if (
-                        (dateInputValue.value === "" &&
-                            titleInputValue.value === "") ||
-                        (dateInputValue.value !== "" &&
-                            titleInputValue.value === "")
-                    ) {
+                    if (titleEmpty(titleInputValue, dateInputValue) === true) {
                         alert("Needs a title!") // must switch that out with a function Modal.
                     }
                 })
             inputText.addEventListener("keydown", e => {
                 if (e.key === "Enter") {
-                    if (
-                        (dateInputValue.value === "" &&
-                            titleInputValue.value !== "") ||
-                        (dateInputValue.value !== "" &&
-                            titleInputValue.value !== "")
-                    ) {
-                        div.remove(document.getElementById(e.target.id)),
+                    if (titleEmpty(titleInputValue, dateInputValue) === false) {
+                        mainContainer.remove(
+                            document.getElementById(e.target.id)
+                        ),
                             filterArrayOnTaskCreate(
                                 titleInputValue.value,
                                 dateInputValue.value
                             )
                     }
-                    if (
-                        (dateInputValue.value === "" &&
-                            titleInputValue.value === "") ||
-                        (dateInputValue.value !== "" &&
-                            titleInputValue.value === "")
-                    ) {
+                    if (titleEmpty(titleInputValue, dateInputValue) === true) {
                         alert("Needs a title!") // must switch that out with a function Modal.
                     }
-                    document.getElementById("titleInput").focus()
+                    titleInputValue.focus()
                 }
                 return
             })
             inputDate.addEventListener("blur", e => {
-                if (
-                    (dateInputValue.value === "" &&
-                        titleInputValue.value !== "") ||
-                    (dateInputValue.value !== "" &&
-                        titleInputValue.value !== "")
-                ) {
-                    div.remove(document.getElementById(e.target.id)),
+                if (titleEmpty(titleInputValue, dateInputValue) === false) {
+                    mainContainer.remove(document.getElementById(e.target.id)),
                         filterArrayOnTaskCreate(
                             titleInputValue.value,
                             dateInputValue.value
                         )
                 }
-                if (
-                    (dateInputValue.value === "" &&
-                        titleInputValue.value === "") ||
-                    (dateInputValue.value !== "" &&
-                        titleInputValue.value === "")
-                ) {
+                if (titleEmpty(titleInputValue, dateInputValue) === true) {
                     alert("Needs a title!") // must switch that out with a function Modal.
                 }
             })
         })
+    }
+}
+
+function titleEmpty(title, date) {
+    if (
+        (date.value === "" && title.value !== "") ||
+        (date.value !== "" && title.value !== "")
+    ) {
+        return false
+    } else {
+        return true
     }
 }
 
@@ -408,7 +405,6 @@ export function createProjectDiv() {
         nav.appendChild(div)
 
         btn.addEventListener("click", e => [
-            console.log("confirmed cleek"),
             div.remove(document.getElementById(e.target.id)),
             (newProjectBtn.innerHTML = inputText.value),
             nav.appendChild(newProjectBtn),

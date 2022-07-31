@@ -6,9 +6,6 @@ import {
     createProjectDiv,
 } from "./domCreation"
 import UI from "./UI"
-navBtnSelection()
-getTaskFromLocalStorage("inboxTasks", inboxArr)
-// createProjectDiv() work in project
 
 if (JSON.parse(localStorage.getItem("inboxTasks")) === null) {
     localStorage.setItem("inboxTasks", JSON.stringify([]))
@@ -19,3 +16,6 @@ if (JSON.parse(localStorage.getItem("todayTasks")) === null) {
 if (JSON.parse(localStorage.getItem("thisWeekTasks")) === null) {
     localStorage.setItem("thisWeekTasks", JSON.stringify([]))
 }
+navBtnSelection()
+getTaskFromLocalStorage("inboxTasks", inboxArr)
+// createProjectDiv()
