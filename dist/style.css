@@ -41,16 +41,16 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-right: 2rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-right: 1rem;
+    /* padding-top: 0.75rem;
+    padding-bottom: 0.75rem; */
 
     background-color: var(--primary-colour);
 }
 
 .header-h1 {
     margin-right: auto;
-    margin-left: 2rem;
+    margin-left: 1rem;
     font-size: 3em;
     font-family: var(--primary-font);
     color: var(--text-colour);
@@ -62,6 +62,7 @@ header {
     font-size: 4em;
     width: fit-content;
     color: var(--text-colour);
+    padding: 0rem;
 }
 
 .active-nav {
@@ -283,10 +284,16 @@ footer > * {
 /* Media screen for desktop */
 
 @media (min-width: 860px) {
+    header {
+        padding-left: 1rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
     .nav-main-wrapper {
         display: flex;
         position: relative;
-        min-height: 90vh;
+        min-height: 100vh;
     }
 
     .hamburger-btn {
