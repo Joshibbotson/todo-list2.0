@@ -137,6 +137,30 @@ export default class UI {
         // })
     }
 
+    createSingleDOMProject(key, array, projectName) {
+        let tasksArr = JSON.parse(localStorage.getItem(key))
+        let i = tasksArr.length - 1
+
+        const nav = document.querySelector(".nav-btns")
+        const newProjectBtn = document.createElement("button")
+
+        newProjectBtn.innerHTML = projectName
+        newProjectBtn.setAttribute("id", "project" + i)
+        nav.appendChild(newProjectBtn)
+
+        // createTaskDiv(array, key)
+    }
+
+    createMultipleDOMProjectBtns(index, projectName) {
+        console.log("heard")
+        const nav = document.querySelector(".nav-btns")
+        const newProjectBtn = document.createElement("button")
+
+        newProjectBtn.innerHTML = projectName
+        newProjectBtn.setAttribute("id", "project" + index)
+        nav.appendChild(newProjectBtn)
+    }
+
     createModal(text) {
         const body = document.getElementsByTagName("body")
         const div = document.createElement("div")

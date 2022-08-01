@@ -5,6 +5,7 @@ import {
     inboxArr,
     todayArr,
     thisWeekArr,
+    projectArr,
 } from "./dom"
 import UI from "./UI"
 import {
@@ -385,12 +386,12 @@ export function createProjectDiv() {
     openAddProjectBtn.addEventListener("click", e => {
         openAddProjectBtn.style.display = "none"
         const div = document.createElement("div")
-        const btn = document.createElement("button")
+        const addProjectBtn = document.createElement("button")
         const inputText = document.createElement("input")
 
-        btn.classList.add("nav-btn-main")
+        addProjectBtn.classList.add("nav-btn-main")
         // btn.setAttribute("id", "addProject" + index)
-        btn.innerHTML = "+ Add Project"
+        addProjectBtn.innerHTML = "+ Add Project"
 
         inputText.setAttribute("type", "text")
         inputText.setAttribute("id", "titleInput")
@@ -398,21 +399,52 @@ export function createProjectDiv() {
 
         div.classList.add("add-task-container")
 
-        div.appendChild(btn)
+        div.appendChild(addProjectBtn)
         div.appendChild(inputText)
         div.setAttribute("id", "addProject")
-        const newProjectBtn = document.createElement("button")
         nav.appendChild(div)
 
-        btn.addEventListener("click", e => [
+        addProjectBtn.addEventListener("click", e => [
             div.remove(document.getElementById(e.target.id)),
-            (newProjectBtn.innerHTML = inputText.value),
-            nav.appendChild(newProjectBtn),
+            pushProject("projects", projectArr, inputText.value),
             (openAddProjectBtn.style.display = "flex"),
         ])
     })
+}
 
-    // const project = addProject(inputProjectTitle)
+function pushProject(key, array, projectName) {
+    if (JSON.parse(localStorage.getItem(key) === null)) {
+        localStorage.setItem(key, JSON.stringify(array))
+    } else {
+        array.length === 0
+            ? (array = JSON.parse(localStorage.getItem(key)))
+            : localStorage.setItem(key, JSON.stringify(array))
+    }
+
+    const project = addProject(projectName)
+    array.push(project)
+    localStorage.setItem(key, JSON.stringify(array))
+
+    const ui = new UI()
+
+    ui.createSingleDOMProject(key, array, projectName)
+}
+
+export function getProjectBtns(key, array) {
+    const i = array.length - 1
+    let projectsArray
+    if (localStorage.getItem(key) === null) {
+        projectsArray = []
+    } else {
+        projectsArray = JSON.parse(localStorage.getItem(key))
+    }
+    const ui = new UI()
+    projectsArray.forEach(project => {
+        ui.createMultipleDOMProjectBtns(
+            projectsArray.indexOf(project),
+            project.name
+        )
+    })
 }
 
 export function inputTitleDOM(array) {

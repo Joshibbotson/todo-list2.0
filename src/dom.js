@@ -21,6 +21,7 @@ export let dom = {
 export let inboxArr = []
 export let todayArr = []
 export let thisWeekArr = []
+export let projectArr = []
 
 let hamburgerBtnActive = true
 
