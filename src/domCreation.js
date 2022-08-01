@@ -310,7 +310,7 @@ export function createTaskDiv(array, key) {
 
             cancelBtn.addEventListener("click", e => {
                 openAddTaskBtn.style.display = "flex"
-                mainContainer.style.display = "none"
+                mainContainer.remove(document.getElementById(e.target.id))
             })
             document
                 .getElementById("addTask" + index)
