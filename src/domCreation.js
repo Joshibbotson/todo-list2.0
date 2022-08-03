@@ -447,6 +447,41 @@ export function getProjectBtns(key, array) {
     })
 }
 
+export function getProjectFromLocalStorage(key, index) {
+    clearAllDomTasks()
+
+    let projectsArr
+    if (localStorage.getItem(key) === null) {
+        projectsArr = []
+    } else {
+        projectsArr = JSON.parse(localStorage.getItem(key))
+    }
+
+    let project = projectsArr[index].array
+
+    const ui = new UI()
+    project.forEach(task => {
+        ui.createMultipleDOMTask(
+            key,
+            project,
+            projectsArr.indexOf(task),
+            task.title,
+            task.date
+        )
+    })
+    createTaskDiv(array, key)
+    //  need to refactor this function for projects specifically
+}
+
+function createTaskDivForProjects(key, index) {
+    // need to make similar create task div here, this is because altering the other
+    // would cause a function that would be overly large and confusing.
+    // sadly I should have implemented the logic different from the beginning
+    // by putting all inbox, today, this week and following projects into a master array.
+
+    console.log(JSON.parse(localStorage.getItem(key)))
+}
+
 export function inputTitleDOM(array) {
     const main = dom.main
     const h1 = document.createElement("h1")

@@ -2,9 +2,11 @@ import {
     deleteTask,
     createTaskDiv,
     editTaskInLocalStorage,
+    getProjectFromLocalStorage,
 } from "./domCreation"
 import { format, isToday, parseISO, differenceInCalendarDays } from "date-fns"
 import { da } from "date-fns/locale"
+import { projectArr } from "./dom"
 
 export default class UI {
     createSingleDOMTask(array, key, title, date) {
@@ -147,18 +149,19 @@ export default class UI {
         newProjectBtn.innerHTML = projectName
         newProjectBtn.setAttribute("id", "project" + i)
         nav.appendChild(newProjectBtn)
-
-        // createTaskDiv(array, key)
     }
 
     createMultipleDOMProjectBtns(index, projectName) {
-        console.log("heard")
         const nav = document.querySelector(".nav-btns")
         const newProjectBtn = document.createElement("button")
 
         newProjectBtn.innerHTML = projectName
         newProjectBtn.setAttribute("id", "project" + index)
         nav.appendChild(newProjectBtn)
+
+        newProjectBtn.addEventListener("click", () => {
+            return getProjectFromLocalStorage("projects", index)
+        })
     }
 
     createModal(text) {
