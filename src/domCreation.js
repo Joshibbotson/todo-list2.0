@@ -453,11 +453,14 @@ export function getProjectFromLocalStorage(key, index) {
     let projectsArr
     if (localStorage.getItem(key) === null) {
         projectsArr = []
+        console.log("empty")
     } else {
         projectsArr = JSON.parse(localStorage.getItem(key))
+        console.log(projectsArr)
     }
 
     let project = projectsArr[index].array
+    console.log(project)
 
     const ui = new UI()
     project.forEach(task => {
@@ -469,8 +472,7 @@ export function getProjectFromLocalStorage(key, index) {
             task.date
         )
     })
-    createTaskDiv(array, key)
-    //  need to refactor this function for projects specifically
+    createTaskDivForProjects("projects", index) //  need to refactor this function for projects specifically
 }
 
 function createTaskDivForProjects(key, index) {
@@ -479,7 +481,120 @@ function createTaskDivForProjects(key, index) {
     // sadly I should have implemented the logic different from the beginning
     // by putting all inbox, today, this week and following projects into a master array.
 
-    console.log(JSON.parse(localStorage.getItem(key)))
+    const accessProjectsLS = JSON.parse(localStorage.getItem(key))
+    const tasksArr = accessProjectsLS[index].array
+    console.log(tasksArr)
+    let arrIndex
+    if (tasksArr === null) {
+        arrIndex = ""
+    } else {
+        arrIndex = tasksArr.length
+
+        const openAddTaskBtn = document.createElement("button")
+        openAddTaskBtn.classList.add("open-add-task-button")
+        openAddTaskBtn.innerHTML = "+ Add Task"
+
+        main.appendChild(openAddTaskBtn)
+
+        openAddTaskBtn.addEventListener("click", e => {
+            openAddTaskBtn.style.display = "none"
+            const mainContainer = document.createElement("div")
+            mainContainer.classList.add("add-task-container")
+
+            const inputContainer = document.createElement("div")
+            const inputText = document.createElement("input")
+            const inputDate = document.createElement("input")
+
+            inputText.setAttribute("type", "text")
+            inputText.setAttribute("id", "titleInput")
+            inputText.classList.add("input-text")
+
+            inputDate.setAttribute("type", "date")
+            inputDate.setAttribute("id", "dateInput")
+            inputDate.classList.add("input-date")
+
+            inputContainer.appendChild(inputText)
+            inputContainer.appendChild(inputDate)
+            inputContainer.classList.add("input-container")
+
+            const btnContainer = document.createElement("div")
+            const addBtn = document.createElement("button")
+            const cancelBtn = document.createElement("button")
+
+            addBtn.classList.add("add-btn-main")
+            addBtn.setAttribute("id", "addTask" + arrIndex)
+            addBtn.innerHTML = "+ Add Task"
+
+            cancelBtn.classList.add("cancel-btn-main")
+            cancelBtn.innerHTML = "cancel"
+
+            btnContainer.appendChild(addBtn)
+            btnContainer.appendChild(cancelBtn)
+            btnContainer.classList.add("btn-container")
+
+            mainContainer.appendChild(inputContainer)
+            mainContainer.appendChild(btnContainer)
+            mainContainer.setAttribute("id", "addTask")
+
+            main.appendChild(mainContainer)
+            document.getElementById("titleInput").focus()
+
+            const titleInputValue = document.getElementById("titleInput")
+            const dateInputValue = document.getElementById("dateInput")
+
+            cancelBtn.addEventListener("click", e => {
+                openAddTaskBtn.style.display = "flex"
+                mainContainer.remove(document.getElementById(e.target.id))
+            })
+            document
+                .getElementById("addTask" + arrIndex)
+                .addEventListener("click", e => {
+                    console.log(e.target.id)
+                    if (titleEmpty(titleInputValue, dateInputValue) === false) {
+                        mainContainer.remove(
+                            document.getElementById(e.target.id)
+                        )
+                    }
+                    if (titleEmpty(titleInputValue, dateInputValue) === true) {
+                        alert("Needs a title!") // must switch that out with a function Modal.
+                    }
+                })
+            inputText.addEventListener("keydown", e => {
+                if (e.key === "Enter") {
+                    if (titleEmpty(titleInputValue, dateInputValue) === false) {
+                        mainContainer.remove(
+                            document.getElementById(e.target.id)
+                        ),
+                            pushTaskToLocalStorage(
+                                key,
+                                tasksArr,
+                                titleInputValue.value,
+                                dateInputValue
+                            )
+                    }
+                    if (titleEmpty(titleInputValue, dateInputValue) === true) {
+                        alert("Needs a title!") // must switch that out with a function Modal.
+                    }
+                    titleInputValue.focus()
+                }
+                return
+            })
+            inputDate.addEventListener("blur", e => {
+                if (titleEmpty(titleInputValue, dateInputValue) === false) {
+                    mainContainer.remove(document.getElementById(e.target.id)),
+                        pushTaskToLocalStorage(
+                            key,
+                            tasksArr,
+                            titleInputValue.value,
+                            dateInputValue
+                        )
+                }
+                if (titleEmpty(titleInputValue, dateInputValue) === true) {
+                    alert("Needs a title!") // must switch that out with a function Modal.
+                }
+            })
+        })
+    }
 }
 
 export function inputTitleDOM(array) {

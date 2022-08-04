@@ -24,3 +24,4 @@ navBtnSelection()
 getTaskFromLocalStorage("inboxTasks", inboxArr)
 // createProjectDiv()
 // getProjectBtns("projects", projectArr)
+// initialises projects, but all associated functions are a work in progress currently.
