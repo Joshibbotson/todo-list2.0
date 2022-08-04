@@ -33,6 +33,7 @@ export function pushTaskToLocalStorage(key, array, title, date) {
     }
 
     const task = addTask(title, date)
+    console.log(array)
     array.push(task)
     localStorage.setItem(key, JSON.stringify(array))
 
@@ -49,6 +50,24 @@ export function pushTaskToLocalStorage(key, array, title, date) {
         default:
             ui.createSingleDOMTask(array, key, task.title, task.date)
     }
+}
+
+export function pushTaskToLocalStorageProjects(key, arr, title, date) {
+    if (JSON.parse(localStorage.getItem(key) === null)) {
+        localStorage.setItem(key, JSON.stringify(arr))
+    } else {
+        arr.length === 0
+            ? (arr = JSON.parse(localStorage.getItem(key)))
+            : localStorage.setItem(key, JSON.stringify(arr))
+    }
+
+    const task = addTask(title, date)
+    console.log(arr)
+    arr[0].array.push(task)
+    localStorage.setItem(key, JSON.stringify(arr))
+
+    const ui = new UI()
+    ui.createSingleDOMTask(arr, key, task.title, task.date)
 }
 
 // gets all tasks from key and puts them into array, then uses a for each loop to create a new DOM element for each one by
@@ -480,7 +499,7 @@ function createTaskDivForProjects(key, index) {
     // would cause a function that would be overly large and confusing.
     // sadly I should have implemented the logic different from the beginning
     // by putting all inbox, today, this week and following projects into a master array.
-
+    console.log("createProject")
     const accessProjectsLS = JSON.parse(localStorage.getItem(key))
     const tasksArr = accessProjectsLS[index].array
     console.log(tasksArr)
@@ -552,7 +571,13 @@ function createTaskDivForProjects(key, index) {
                     console.log(e.target.id)
                     if (titleEmpty(titleInputValue, dateInputValue) === false) {
                         mainContainer.remove(
-                            document.getElementById(e.target.id)
+                            document.getElementById(e.target.id),
+                            pushTaskToLocalStorageProjects(
+                                key,
+                                tasksArr,
+                                titleInputValue.value,
+                                dateInputValue
+                            )
                         )
                     }
                     if (titleEmpty(titleInputValue, dateInputValue) === true) {
@@ -565,7 +590,7 @@ function createTaskDivForProjects(key, index) {
                         mainContainer.remove(
                             document.getElementById(e.target.id)
                         ),
-                            pushTaskToLocalStorage(
+                            pushTaskToLocalStorageProjects(
                                 key,
                                 tasksArr,
                                 titleInputValue.value,
@@ -582,7 +607,7 @@ function createTaskDivForProjects(key, index) {
             inputDate.addEventListener("blur", e => {
                 if (titleEmpty(titleInputValue, dateInputValue) === false) {
                     mainContainer.remove(document.getElementById(e.target.id)),
-                        pushTaskToLocalStorage(
+                        pushTaskToLocalStorageProjects(
                             key,
                             tasksArr,
                             titleInputValue.value,

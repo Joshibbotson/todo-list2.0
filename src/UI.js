@@ -148,6 +148,7 @@ export default class UI {
 
         newProjectBtn.innerHTML = projectName
         newProjectBtn.setAttribute("id", "project" + i)
+        newProjectBtn.classList.add("nav-btn")
         nav.appendChild(newProjectBtn)
     }
 
@@ -157,6 +158,8 @@ export default class UI {
 
         newProjectBtn.innerHTML = projectName
         newProjectBtn.setAttribute("id", "project" + index)
+        newProjectBtn.classList.add("nav-btn")
+
         nav.appendChild(newProjectBtn)
 
         newProjectBtn.addEventListener("click", () => {
