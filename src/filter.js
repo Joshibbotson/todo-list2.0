@@ -1,4 +1,4 @@
-import { pushTaskToLocalStorage } from "./domCreation"
+import { pushTaskToLocalStorage } from "./inboxTodayWeek"
 import { inboxArr, todayArr, thisWeekArr } from "./dom"
 import { isToday, isThisWeek, parseISO } from "date-fns"
 

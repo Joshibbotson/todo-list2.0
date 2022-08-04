@@ -5,7 +5,7 @@ import {
     clearDOMTask,
     deleteTask,
     inputTitleDOM,
-} from "./domCreation"
+} from "./inboxTodayWeek"
 
 export let dom = {
     main: document.getElementById("main"),

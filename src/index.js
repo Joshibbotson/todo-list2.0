@@ -3,9 +3,7 @@ import { inboxArr } from "./dom"
 import {
     pushTaskToLocalStorage,
     getTaskFromLocalStorage,
-    createProjectDiv,
-    getProjectBtns,
-} from "./domCreation"
+} from "./inboxTodayWeek"
 import UI from "./UI"
 
 if (JSON.parse(localStorage.getItem("inboxTasks")) === null) {
@@ -22,6 +20,3 @@ if (JSON.parse(localStorage.getItem("projects")) === null) {
 }
 navBtnSelection()
 getTaskFromLocalStorage("inboxTasks", inboxArr)
-// createProjectDiv()
-// getProjectBtns("projects", projectArr)
-// initialises projects, but all associated functions are a work in progress currently.

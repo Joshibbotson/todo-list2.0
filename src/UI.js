@@ -2,8 +2,7 @@ import {
     deleteTask,
     createTaskDiv,
     editTaskInLocalStorage,
-    getProjectFromLocalStorage,
-} from "./domCreation"
+} from "./inboxTodayWeek"
 import { format, isToday, parseISO, differenceInCalendarDays } from "date-fns"
 import { da } from "date-fns/locale"
 import { projectArr } from "./dom"
@@ -150,21 +149,6 @@ export default class UI {
         newProjectBtn.setAttribute("id", "project" + i)
         newProjectBtn.classList.add("nav-btn")
         nav.appendChild(newProjectBtn)
-    }
-
-    createMultipleDOMProjectBtns(index, projectName) {
-        const nav = document.querySelector(".nav-btns")
-        const newProjectBtn = document.createElement("button")
-
-        newProjectBtn.innerHTML = projectName
-        newProjectBtn.setAttribute("id", "project" + index)
-        newProjectBtn.classList.add("nav-btn")
-
-        nav.appendChild(newProjectBtn)
-
-        newProjectBtn.addEventListener("click", () => {
-            return getProjectFromLocalStorage("projects", index)
-        })
     }
 
     createModal(text) {
