@@ -35,6 +35,7 @@ export function filterArrayOnEdit(
     newTitle,
     newDate
 ) {
+    console.log("filter array on date change")
     //Arrays taken from localstorage
     const inboxTasks = JSON.parse(localStorage.getItem("inboxTasks"))
     const todayTasks = JSON.parse(localStorage.getItem("todayTasks"))
@@ -77,6 +78,8 @@ export function filterArrayOnEdit(
         thisWeekTasks.some(object => object.title === oldTitle) === true &&
         thisWeekTasks.some(object => object.date === oldDate) === true
     ) {
+        console.log("filter array on week! change")
+
         for (let i = 0; i < thisWeekTasks.length; i++) {
             if (
                 thisWeekTasks[i].title === oldTitle &&
@@ -91,6 +94,7 @@ export function filterArrayOnEdit(
             }
         }
     }
+    console.log("before filterArrayonDateChange")
     filterArrayOnDateChange(masterArr, masterIndex, newTitle, newDate)
 }
 
@@ -173,6 +177,9 @@ export function filterArrayOnDateChange(
 
     const today = isToday(parseISO(masterDate))
     const thisWeek = isThisWeek(parseISO(masterDate))
+    console.log("today " + today)
+    console.log("week " + thisWeek)
+
     // ////////
     // DELETE SECTION//
     /////////
@@ -239,6 +246,7 @@ export function filterArrayOnDateChange(
                     case true:
                         break
                     case false:
+                        console.log("not present in array and today true")
                         pushTaskToLocalStorage(
                             "thisWeekTasks",
                             todayArr,

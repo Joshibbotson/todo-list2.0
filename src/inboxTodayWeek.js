@@ -1,20 +1,11 @@
 import { addTask } from "./addtask"
-import {
-    dom,
-    clickEventDeleteBtns,
-    inboxArr,
-    todayArr,
-    thisWeekArr,
-    projectArr,
-} from "./dom"
+import { clickEventDeleteBtns, inboxArr, todayArr, thisWeekArr } from "./dom"
 import UI from "./UI"
 import {
     filterArrayOnDelete,
     filterArrayOnEdit,
     filterArrayOnTaskCreate,
 } from "./filter"
-import { format, isToday, parseISO } from "date-fns"
-import { addProject } from "./addproject"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
 // if the array is empty, which happens everytime a user refreshes/leaves page, the localstorage
@@ -33,7 +24,6 @@ export function pushTaskToLocalStorage(key, array, title, date) {
     }
 
     const task = addTask(title, date)
-    console.log(array)
     array.push(task)
     localStorage.setItem(key, JSON.stringify(array))
 
@@ -91,6 +81,7 @@ export function getTaskFromLocalStorage(key, array) {
 }
 // edits task on task title click
 export function editTaskInLocalStorage(index, target, key, array, title, date) {
+    console.log("editTaskInLocalStorage")
     if (document.getElementById("editTextInput") !== null) {
         return
     } else {
@@ -147,6 +138,7 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         div.addEventListener("keydown", e => {
             if (e.key === "Enter") {
                 return (
+                    console.log("enterKey"),
                     filterArrayOnEdit(
                         tasksArr,
                         index,

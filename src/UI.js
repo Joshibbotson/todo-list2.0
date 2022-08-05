@@ -11,7 +11,6 @@ export default class UI {
     createSingleDOMTask(array, key, title, date) {
         let tasksArr = JSON.parse(localStorage.getItem(key))
         let i = tasksArr.length - 1
-        let formattedDate = new Date(date).toUTCString()
 
         const main = document.getElementById("main")
         const div = document.createElement("div")
@@ -23,7 +22,11 @@ export default class UI {
         const pDate = document.createElement("p")
 
         p.innerHTML = title
-        pDate.innerText = date
+        if (date !== "") {
+            pDate.innerHTML = format(new Date(date), "dd MMM-yy")
+        } else {
+            pDate.innerHTML = ""
+        }
         pDate.classList.add("date-p")
         pDate.setAttribute("id", "date" + i)
 
@@ -73,8 +76,6 @@ export default class UI {
     }
 
     createMultipleDOMTask(key, array, index, title, date) {
-        let formattedDate = new Date(date).toUTCString()
-
         const main = document.getElementById("main")
         const div = document.createElement("div")
         const dateAndDeleteDiv = document.createElement("div")
@@ -84,7 +85,11 @@ export default class UI {
         const p = document.createElement("p")
         const pDate = document.createElement("p")
         p.innerHTML = title
-        pDate.innerText = date
+        if (date !== "") {
+            pDate.innerHTML = format(new Date(date), "dd MMM-yy")
+        } else {
+            pDate.innerHTML = ""
+        }
         deleteBtn.innerHTML = "X"
         deleteBtn.setAttribute("id", index)
         deleteBtn.classList.add("task-delete-btn")
