@@ -1,11 +1,19 @@
 import { addTask } from "./addtask"
-import { clickEventDeleteBtns, inboxArr, todayArr, thisWeekArr } from "./dom"
+import {
+    clickEventDeleteBtns,
+    inboxArr,
+    todayArr,
+    thisWeekArr,
+    completedArr,
+} from "./dom"
 import UI from "./UI"
 import {
     filterArrayOnDelete,
     filterArrayOnEdit,
     filterArrayOnTaskCreate,
 } from "./filter"
+import { indexOf } from "lodash"
+import { isToday, parseISO } from "date-fns"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
 // if the array is empty, which happens everytime a user refreshes/leaves page, the localstorage
@@ -24,6 +32,10 @@ export function pushTaskToLocalStorage(key, array, title, date) {
     }
 
     const task = addTask(title, date)
+    if (key === "completed") {
+        task.completedDate = new Date()
+    }
+
     array.push(task)
     localStorage.setItem(key, JSON.stringify(array))
 
@@ -36,6 +48,8 @@ export function pushTaskToLocalStorage(key, array, title, date) {
         case "todayTasks":
             break
         case "thisWeekTasks":
+            break
+        case "completed":
             break
         default:
             ui.createSingleDOMTask(array, key, task.title, task.date)
@@ -56,16 +70,28 @@ export function getTaskFromLocalStorage(key, array) {
         tasksArr = JSON.parse(localStorage.getItem(key))
     }
     const ui = new UI()
-    // ui.darkModeToggle()
-    tasksArr.forEach(task => {
-        ui.createMultipleDOMTask(
-            key,
-            array,
-            tasksArr.indexOf(task),
-            task.title,
-            task.date
-        )
-    })
+    if (key === "completed") {
+        tasksArr.forEach(task => {
+            ui.createMultipleDOMCompletedTasks(
+                key,
+                array,
+                tasksArr.indexOf(task),
+                task.title,
+                task.date
+            )
+        })
+    } else {
+        tasksArr.forEach(task => {
+            ui.createMultipleDOMTask(
+                key,
+                array,
+                tasksArr.indexOf(task),
+                task.title,
+                task.date
+            )
+        })
+    }
+
     switch (array) {
         case inboxArr:
             createTaskDiv(array, key)
@@ -74,9 +100,22 @@ export function getTaskFromLocalStorage(key, array) {
             break
         case thisWeekArr:
             break
+        case completedArr:
+            break
         default:
             createTaskDiv(array, key)
             break
+    }
+    if (key === "completed") {
+        tasksArr.forEach(task => {
+            const today = isToday(parseISO(task.completedDate))
+            console.log(today)
+            if (!today) {
+                console.log(task.completedDate)
+                deleteTask(tasksArr.indexOf(task), "completed", completedArr)
+            }
+            console.log("not today but soon!")
+        })
     }
 }
 // edits task on task title click
@@ -206,7 +245,7 @@ export function deleteTask(index, key, array) {
     }
     const title = tasksArr[index].title
     const date = tasksArr[index].date
-
+    pushTaskToLocalStorage("completed", completedArr, title, date)
     filterArrayOnDelete(tasksArr, index, title, date)
 
     tasksArr.splice(index, 1)
@@ -232,6 +271,10 @@ export function clearAllDomTasks(array) {
             break
         case thisWeekArr:
             h1.innerHTML = "This Week"
+            main.appendChild(h1)
+            break
+        case completedArr:
+            h1.innerHTML = "Completed Tasks"
             main.appendChild(h1)
             break
         default:
@@ -383,6 +426,10 @@ export function inputTitleDOM(array) {
             break
         case thisWeekArr:
             h1.innerHTML = "This Week"
+            main.appendChild(h1)
+            break
+        case completedArr:
+            h1.innerHTML = "Completed Tasks"
             main.appendChild(h1)
             break
     }

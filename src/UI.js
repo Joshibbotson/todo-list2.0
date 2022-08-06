@@ -23,7 +23,7 @@ export default class UI {
 
         p.innerHTML = title
         if (date !== "") {
-            pDate.innerHTML = format(new Date(date), "dd MMM-yy")
+            pDate.innerHTML = format(new Date(date), "dd MMM-yyyy")
         } else {
             pDate.innerHTML = ""
         }
@@ -86,7 +86,7 @@ export default class UI {
         const pDate = document.createElement("p")
         p.innerHTML = title
         if (date !== "") {
-            pDate.innerHTML = format(new Date(date), "dd MMM-yy")
+            pDate.innerHTML = format(new Date(date), "dd MMM-yyyy")
         } else {
             pDate.innerHTML = ""
         }
@@ -143,17 +143,45 @@ export default class UI {
         // })
     }
 
-    createSingleDOMProject(key, array, projectName) {
-        let tasksArr = JSON.parse(localStorage.getItem(key))
-        let i = tasksArr.length - 1
+    createMultipleDOMCompletedTasks(key, array, index, title, date) {
+        console.log("hello world")
+        const main = document.getElementById("main")
+        const div = document.createElement("div")
+        const dateAndDeleteDiv = document.createElement("div")
+        const deleteBtn = document.createElement("button")
+        const p = document.createElement("p")
+        const pDate = document.createElement("p")
+        p.innerHTML = title
+        if (date !== "") {
+            pDate.innerHTML = format(new Date(date), "dd MMM-yyyy")
+        } else {
+            pDate.innerHTML = ""
+        }
+        deleteBtn.innerHTML = "X"
+        deleteBtn.setAttribute("id", index)
+        deleteBtn.classList.add("task-delete-btn")
 
-        const nav = document.querySelector(".nav-btns")
-        const newProjectBtn = document.createElement("button")
+        pDate.setAttribute("id", "date" + index)
+        pDate.classList.add("date-p")
 
-        newProjectBtn.innerHTML = projectName
-        newProjectBtn.setAttribute("id", "project" + i)
-        newProjectBtn.classList.add("nav-btn")
-        nav.appendChild(newProjectBtn)
+        div.setAttribute("id", index)
+        div.classList.add("task-div-completed")
+
+        dateAndDeleteDiv.classList.add("date-and-delete-container")
+        dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + index)
+
+        dateAndDeleteDiv.appendChild(pDate)
+        dateAndDeleteDiv.appendChild(deleteBtn)
+        div.appendChild(p)
+        div.appendChild(dateAndDeleteDiv)
+
+        main.appendChild(div)
+
+        deleteBtn.addEventListener("click", e => {
+            let i = e.target.id
+            console.log("hi")
+            return deleteTask(i, key, array)
+        })
     }
 
     createModal(text) {

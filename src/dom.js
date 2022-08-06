@@ -13,15 +13,13 @@ export let dom = {
     inboxBtn: document.getElementById("inbox"),
     todayBtn: document.getElementById("today"),
     thisWeekBtn: document.getElementById("thisWeek"),
-    addTaskBtn: document.getElementById("addTaskBtn"),
-    titleInput: document.getElementById("titleInput"),
-    dateInput: document.getElementById("dateInput"),
+    completed: document.getElementById("completed"),
 }
 
 export let inboxArr = []
 export let todayArr = []
 export let thisWeekArr = []
-export let projectArr = []
+export let completedArr = []
 
 let hamburgerBtnActive = true
 
@@ -40,7 +38,12 @@ export const hamburgerBtn = document
 // note at some point this function will need to bring up the DOM for each associated array
 
 export function navBtnSelection() {
-    const navBtnArr = [dom.inboxBtn, dom.todayBtn, dom.thisWeekBtn]
+    const navBtnArr = [
+        dom.inboxBtn,
+        dom.todayBtn,
+        dom.thisWeekBtn,
+        dom.completed,
+    ]
 
     for (let i = 0; i < navBtnArr.length; i++) {
         navBtnArr[i].setAttribute("id", "navBtn" + i)
@@ -51,6 +54,8 @@ export function navBtnSelection() {
             dom.inboxBtn.classList.remove("nav-btn-active")
             dom.todayBtn.classList.remove("nav-btn-active")
             dom.thisWeekBtn.classList.remove("nav-btn-active")
+            dom.completed.classList.remove("nav-btn-active")
+
             e.target.classList.add("nav-btn-active")
         })
     })
@@ -66,4 +71,8 @@ dom.todayBtn.addEventListener("click", () => {
 
 dom.thisWeekBtn.addEventListener("click", () => {
     return getTaskFromLocalStorage("thisWeekTasks", thisWeekArr)
+})
+
+dom.completed.addEventListener("click", () => {
+    return getTaskFromLocalStorage("completed", completedArr)
 })

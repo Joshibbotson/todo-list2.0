@@ -15,8 +15,8 @@ if (JSON.parse(localStorage.getItem("todayTasks")) === null) {
 if (JSON.parse(localStorage.getItem("thisWeekTasks")) === null) {
     localStorage.setItem("thisWeekTasks", JSON.stringify([]))
 }
-if (JSON.parse(localStorage.getItem("projects")) === null) {
-    localStorage.setItem("projects", JSON.stringify([]))
+if (JSON.parse(localStorage.getItem("completed")) === null) {
+    localStorage.setItem("completed", JSON.stringify([]))
 }
 navBtnSelection()
 getTaskFromLocalStorage("inboxTasks", inboxArr)

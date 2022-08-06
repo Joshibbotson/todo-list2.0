@@ -9,6 +9,7 @@
     --secondary-colour: #a2a8d3;
     --tertiary-colour: #e7eaf6;
     --highlight-colour: #969bc4;
+    --completed-colour: #38598b90;
     --text-colour: white;
     --primary-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
@@ -213,6 +214,25 @@ main {
     color: var(--text-colour);
 }
 
+.task-div-completed {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1em;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--completed-colour);
+    text-decoration: line-through;
+}
+
+.task-div-completed:hover {
+    background-color: var(--highlight-colour);
+    color: var(--text-colour);
+}
+
 input[type="text"] {
     font-family: var(--primary-font);
     color: var(--primary-colour);
@@ -373,6 +393,7 @@ footer > * {
         --navGrey: rgb(64, 64, 64);
         --lightGrey: rgb(150, 150, 150);
         --textColour: white;
+        --completedTask: rgba(255, 255, 255, 0.395);
     }
 
     body {
@@ -428,6 +449,14 @@ footer > * {
     }
 
     .task-div:hover {
+        background-color: rgb(170, 170, 170);
+    }
+
+    .task-div-completed {
+        color: var(--completedTask);
+    }
+
+    .task-div-completed:hover {
         background-color: rgb(170, 170, 170);
     }
 
