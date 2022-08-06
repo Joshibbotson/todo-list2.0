@@ -393,7 +393,7 @@ footer > * {
         --navGrey: rgb(64, 64, 64);
         --lightGrey: rgb(150, 150, 150);
         --textColour: white;
-        --completedTask: rgba(255, 255, 255, 0.395);
+        --completedTask: rgba(255, 255, 255, 0.725);
     }
 
     body {
