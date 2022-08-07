@@ -144,7 +144,6 @@ export default class UI {
     }
 
     createMultipleDOMCompletedTasks(key, array, index, title, date) {
-        console.log("hello world")
         const main = document.getElementById("main")
         const div = document.createElement("div")
         const dateAndDeleteDiv = document.createElement("div")
@@ -152,6 +151,7 @@ export default class UI {
         const p = document.createElement("p")
         const pDate = document.createElement("p")
         p.innerHTML = title
+        p.style.textDecoration = "line-through"
         if (date !== "") {
             pDate.innerHTML = format(new Date(date), "dd MMM-yyyy")
         } else {
@@ -163,6 +163,7 @@ export default class UI {
 
         pDate.setAttribute("id", "date" + index)
         pDate.classList.add("date-p")
+        pDate.style.textDecoration = "line-through"
 
         div.setAttribute("id", index)
         div.classList.add("task-div-completed")
@@ -223,11 +224,5 @@ export default class UI {
         const body = document.getElementsByTagName("body")
         main[0].style.backgroundColor = "rgb(150, 150, 150)"
         body[0].style.backgroundColor = "rgb(150, 150, 150)"
-    }
-
-    clearDOMTask(event, key, array) {
-        // array.forEach(object => {
-        //     if (object === event)
-        // });
     }
 }

@@ -225,7 +225,6 @@ main {
     font-size: 1em;
     font-weight: 600;
     color: var(--completed-colour);
-    text-decoration: line-through;
 }
 
 .task-div-completed:hover {
@@ -298,6 +297,9 @@ input[type="date"] {
 }
 
 .task-div:hover .task-delete-btn {
+    visibility: visible;
+}
+.task-div-completed:hover .task-delete-btn {
     visibility: visible;
 }
 
