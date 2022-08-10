@@ -1,14 +1,6 @@
-import {
-    pushTaskToLocalStorage,
-    getTaskFromLocalStorage,
-    clearAllDomTasks,
-    clearDOMTask,
-    deleteTask,
-    inputTitleDOM,
-} from "./inboxTodayWeek"
+import { getTaskFromLocalStorage } from "./inboxTodayWeekCompleted tabs"
 
 export let dom = {
-    main: document.getElementById("main"),
     nav: document.getElementById("nav"),
     inboxBtn: document.getElementById("inbox"),
     todayBtn: document.getElementById("today"),
@@ -34,9 +26,7 @@ export const hamburgerBtn = document
         }
     })
 
-// assigns id to each of the 3 default inbox types, and adds button highlight on click and removes others highlights.
-// note at some point this function will need to bring up the DOM for each associated array
-
+// assigns id to each of the 4 default inbox types, and adds button highlight on click and removes others highlights.
 export function navBtnSelection() {
     const navBtnArr = [
         dom.inboxBtn,

@@ -1,4 +1,4 @@
-import { pushTaskToLocalStorage } from "./inboxTodayWeek"
+import { pushTaskToLocalStorage } from "./inboxTodayWeekCompleted tabs"
 import { inboxArr, todayArr, thisWeekArr } from "./dom"
 import { isToday, isThisWeek, parseISO } from "date-fns"
 
@@ -26,7 +26,7 @@ export function filterArrayOnTaskCreate(title, date) {
 
 // logic should be take params of old tilte/date and new title/date
 // search arrays for old title/date, if same object present, update and set localstorage
-// with new title/date, else do nothing. Maste
+// with new title/date, else do nothing.
 export function filterArrayOnEdit(
     masterArr,
     masterIndex,
@@ -35,7 +35,6 @@ export function filterArrayOnEdit(
     newTitle,
     newDate
 ) {
-    console.log("filter array on date change")
     //Arrays taken from localstorage
     const inboxTasks = JSON.parse(localStorage.getItem("inboxTasks"))
     const todayTasks = JSON.parse(localStorage.getItem("todayTasks"))
@@ -44,8 +43,6 @@ export function filterArrayOnEdit(
     if (
         inboxTasks.some(object => object.title === oldTitle) === true &&
         inboxTasks.some(object => object.date === oldDate) === true
-        // (inboxTasks.some(object => object.title === oldTitle) === true &&
-        //     inboxTasks.some(object => object.date === "") === true)
     ) {
         for (let i = 0; i < inboxTasks.length; i++) {
             if (
@@ -78,8 +75,6 @@ export function filterArrayOnEdit(
         thisWeekTasks.some(object => object.title === oldTitle) === true &&
         thisWeekTasks.some(object => object.date === oldDate) === true
     ) {
-        console.log("filter array on week! change")
-
         for (let i = 0; i < thisWeekTasks.length; i++) {
             if (
                 thisWeekTasks[i].title === oldTitle &&
@@ -94,7 +89,6 @@ export function filterArrayOnEdit(
             }
         }
     }
-    console.log("before filterArrayonDateChange")
     filterArrayOnDateChange(masterArr, masterIndex, newTitle, newDate)
 }
 
@@ -154,17 +148,6 @@ export function filterArrayOnDelete(
     }
 }
 
-// this will be called on after editing, it should do the following:
-//- check the result against all arrays
-// - if true: check the date agaisnt the criteria of that array
-//  - if true: do nothing.
-//  - if false: remove it from the array
-
-// second half
-// at this point in incorrect tasks should have been removed
-// we now need to add in the task to any array it should be in
-// which arguably we could use filterArrayOnTaskCreate in theory...
-
 export function filterArrayOnDateChange(
     masterArr,
     masterIndex,
@@ -177,8 +160,6 @@ export function filterArrayOnDateChange(
 
     const today = isToday(parseISO(masterDate))
     const thisWeek = isThisWeek(parseISO(masterDate))
-    console.log("today " + today)
-    console.log("week " + thisWeek)
 
     // ////////
     // DELETE SECTION//
@@ -246,7 +227,6 @@ export function filterArrayOnDateChange(
                     case true:
                         break
                     case false:
-                        console.log("not present in array and today true")
                         pushTaskToLocalStorage(
                             "thisWeekTasks",
                             todayArr,

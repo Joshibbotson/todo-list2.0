@@ -2,10 +2,8 @@ import {
     deleteTask,
     createTaskDiv,
     editTaskInLocalStorage,
-} from "./inboxTodayWeek"
-import { format, isToday, parseISO, differenceInCalendarDays } from "date-fns"
-import { da } from "date-fns/locale"
-import { projectArr } from "./dom"
+} from "./inboxTodayWeekCompleted tabs"
+import { format } from "date-fns"
 
 export default class UI {
     createSingleDOMTask(array, key, title, date) {
@@ -17,7 +15,6 @@ export default class UI {
         const dateAndDeleteDiv = document.createElement("div")
         const tickOffBtn = document.createElement("button")
         const deleteBtn = document.createElement("button")
-        // const dateInput = document.createElement("input")
         const p = document.createElement("p")
         const pDate = document.createElement("p")
 
@@ -38,7 +35,6 @@ export default class UI {
         deleteBtn.classList.add("task-delete-btn")
         tickOffBtn.setAttribute("id", i)
         tickOffBtn.classList.add("tick-off-btn")
-        // dateInput.setAttribute("type", "date")
 
         dateAndDeleteDiv.classList.add("date-and-delete-container")
         dateAndDeleteDiv.setAttribute("id", "dateAndDeleteContainer" + i)
@@ -67,12 +63,7 @@ export default class UI {
             let target = e.target
             return editTaskInLocalStorage(i, target, key, array, title, date)
         })
-        // pDate.addEventListener("click", e => {
-        //     let i = e.target.parentElement.id
-        //     let target = e.target
-        //     return editTaskInLocalStorage(i, target, key, array, title, date)
-        // })
-        createTaskDiv(array, key)
+        createTaskDiv(key)
     }
 
     createMultipleDOMTask(key, array, index, title, date) {
@@ -81,7 +72,7 @@ export default class UI {
         const dateAndDeleteDiv = document.createElement("div")
         const deleteBtn = document.createElement("button")
         const tickOffBtn = document.createElement("button")
-        // const dateInput = document.createElement("input")
+
         const p = document.createElement("p")
         const pDate = document.createElement("p")
         p.innerHTML = title
@@ -95,8 +86,6 @@ export default class UI {
         deleteBtn.classList.add("task-delete-btn")
         tickOffBtn.setAttribute("id", index)
         tickOffBtn.classList.add("tick-off-btn")
-
-        // dateInput.setAttribute("type", "date")
 
         pDate.setAttribute("id", "date" + index)
         pDate.classList.add("date-p")
@@ -127,20 +116,8 @@ export default class UI {
         p.addEventListener("click", e => {
             let i = e.target.parentElement.id
             let target = e.target
-            console.log(i)
-            console.log(target)
-
             return editTaskInLocalStorage(i, target, key, array, title, date)
         })
-
-        // pDate.addEventListener("click", e => {
-        //     let i = e.target.parentElement.id
-        //     let target = e.target
-        //     console.log(i)
-        //     console.log(target)
-
-        //     return editTaskInLocalStorage(i, target, key, array, title, date)
-        // })
     }
 
     createMultipleDOMCompletedTasks(key, array, index, title, date) {
@@ -180,49 +157,7 @@ export default class UI {
 
         deleteBtn.addEventListener("click", e => {
             let i = e.target.id
-            console.log("hi")
             return deleteTask(i, key, array)
         })
-    }
-
-    createModal(text) {
-        const body = document.getElementsByTagName("body")
-        const div = document.createElement("div")
-        div.innerHTML = ` 
-    <div class="modal" id="modal1">
-        <div class="modal-dialog">
-            <header class="modal-header">
-                Hello!
-                <button
-                    class="close-modal"
-                    aria-label="close modal"
-                    data-close
-                >
-                    ✕
-                </button>
-            </header>
-            <section class="modal-content">
-                ${text}
-            </section>
-            <footer class="modal-footer">Josh Ibbotson</footer>
-        </div>
-    </div>`
-        body.appendChild(div)
-    }
-
-    darkModeToggle() {
-        const header = document.getElementsByTagName("header")
-        const mainH1 = document.querySelectorAll("h1")
-        const footer = document.getElementsByTagName("footer")
-        footer[0].style.backgroundColor = "rgb(40, 40, 40)"
-        mainH1[1].style.color = "white"
-        header[0].style.backgroundColor = "rgb(40, 40, 40)"
-        const nav = document.getElementsByTagName("nav")
-        nav[0].style.backgroundColor = "rgb(64, 64, 64)"
-
-        const main = document.getElementsByTagName("main")
-        const body = document.getElementsByTagName("body")
-        main[0].style.backgroundColor = "rgb(150, 150, 150)"
-        body[0].style.backgroundColor = "rgb(150, 150, 150)"
     }
 }

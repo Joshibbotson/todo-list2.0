@@ -1,10 +1,6 @@
-import { hamburgerBtn, navBtnSelection, dom, projectArr } from "./dom"
+import { navBtnSelection } from "./dom"
 import { inboxArr } from "./dom"
-import {
-    pushTaskToLocalStorage,
-    getTaskFromLocalStorage,
-} from "./inboxTodayWeek"
-import UI from "./UI"
+import { getTaskFromLocalStorage } from "./inboxTodayWeekCompleted tabs"
 
 if (JSON.parse(localStorage.getItem("inboxTasks")) === null) {
     localStorage.setItem("inboxTasks", JSON.stringify([]))

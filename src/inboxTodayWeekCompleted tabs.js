@@ -1,18 +1,11 @@
 import { addTask } from "./addtask"
-import {
-    clickEventDeleteBtns,
-    inboxArr,
-    todayArr,
-    thisWeekArr,
-    completedArr,
-} from "./dom"
+import { inboxArr, todayArr, thisWeekArr, completedArr } from "./dom"
 import UI from "./UI"
 import {
     filterArrayOnDelete,
     filterArrayOnEdit,
     filterArrayOnTaskCreate,
 } from "./filter"
-import { indexOf } from "lodash"
 import { isToday, parseISO } from "date-fns"
 
 // creates a new task and pushes it into associated array and associated localstorage.//
@@ -94,7 +87,7 @@ export function getTaskFromLocalStorage(key, array) {
 
     switch (array) {
         case inboxArr:
-            createTaskDiv(array, key)
+            createTaskDiv(key)
             break
         case todayArr:
             break
@@ -103,24 +96,20 @@ export function getTaskFromLocalStorage(key, array) {
         case completedArr:
             break
         default:
-            createTaskDiv(array, key)
+            createTaskDiv(key)
             break
     }
     if (key === "completed") {
         tasksArr.forEach(task => {
             const today = isToday(parseISO(task.completedDate))
-            console.log(today)
             if (!today) {
-                console.log(task.completedDate)
                 deleteTask(tasksArr.indexOf(task), "completed", completedArr)
             }
-            console.log("not today but soon!")
         })
     }
 }
 // edits task on task title click
 export function editTaskInLocalStorage(index, target, key, array, title, date) {
-    console.log("editTaskInLocalStorage")
     if (document.getElementById("editTextInput") !== null) {
         return
     } else {
@@ -177,7 +166,6 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         div.addEventListener("keydown", e => {
             if (e.key === "Enter") {
                 return (
-                    console.log("enterKey"),
                     filterArrayOnEdit(
                         tasksArr,
                         index,
@@ -284,7 +272,7 @@ export function clearAllDomTasks(array) {
 }
 
 // creates " + Add task" with text input and date input
-export function createTaskDiv(array, key) {
+export function createTaskDiv(key) {
     const tasksArr = JSON.parse(localStorage.getItem(key))
     let index
     if (tasksArr === null) {
@@ -352,7 +340,6 @@ export function createTaskDiv(array, key) {
             document
                 .getElementById("addTask" + index)
                 .addEventListener("click", e => {
-                    console.log(e.target.id)
                     if (titleEmpty(titleInputValue, dateInputValue) === false) {
                         mainContainer.remove(
                             document.getElementById(e.target.id)
@@ -363,7 +350,7 @@ export function createTaskDiv(array, key) {
                             )
                     }
                     if (titleEmpty(titleInputValue, dateInputValue) === true) {
-                        alert("Needs a title!") // must switch that out with a function Modal.
+                        alert("Needs a title!")
                     }
                 })
             inputText.addEventListener("keydown", e => {
@@ -378,7 +365,7 @@ export function createTaskDiv(array, key) {
                             )
                     }
                     if (titleEmpty(titleInputValue, dateInputValue) === true) {
-                        alert("Needs a title!") // must switch that out with a function Modal.
+                        alert("Needs a title!")
                     }
                     titleInputValue.focus()
                 }
@@ -393,7 +380,7 @@ export function createTaskDiv(array, key) {
                         )
                 }
                 if (titleEmpty(titleInputValue, dateInputValue) === true) {
-                    alert("Needs a title!") // must switch that out with a function Modal.
+                    alert("Needs a title!")
                 }
             })
         })

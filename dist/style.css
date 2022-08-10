@@ -303,26 +303,6 @@ input[type="date"] {
     visibility: visible;
 }
 
-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
-
-    font-weight: 700;
-    font-family: var(--primary-font);
-    color: var(--tertiary-colour);
-    background-color: var(--primary-colour);
-}
-
-footer > * {
-    cursor: default;
-}
-
 /* Media screen for desktop */
 
 @media (min-width: 860px) {
@@ -421,14 +401,6 @@ footer > * {
 
     main {
         background-color: var(--lightGrey);
-        color: var(--textColour);
-    }
-
-    footer {
-        background-color: var(--nearBlack);
-    }
-
-    footer p {
         color: var(--textColour);
     }
 
