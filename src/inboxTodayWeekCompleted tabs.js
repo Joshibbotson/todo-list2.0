@@ -224,7 +224,7 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
 //Should in theory splice a given index out of a given array
 // then reset the localStorage to that new array and remake the UI using the
 // UI class createMultipleDOMTask
-export function deleteTask(index, key, array) {
+export function completeTask(index, key, array) {
     let tasksArr
     if (localStorage.getItem(key) === null) {
         tasksArr = []
@@ -234,6 +234,22 @@ export function deleteTask(index, key, array) {
     const title = tasksArr[index].title
     const date = tasksArr[index].date
     pushTaskToLocalStorage("completed", completedArr, title, date)
+    filterArrayOnDelete(tasksArr, index, title, date)
+
+    tasksArr.splice(index, 1)
+    localStorage.setItem(key, JSON.stringify(tasksArr))
+    getTaskFromLocalStorage(key, array)
+}
+
+export function deleteTask(index, key, array) {
+    let tasksArr
+    if (localStorage.getItem(key) === null) {
+        tasksArr = []
+    } else {
+        tasksArr = JSON.parse(localStorage.getItem(key))
+    }
+    const title = tasksArr[index].title
+    const date = tasksArr[index].date
     filterArrayOnDelete(tasksArr, index, title, date)
 
     tasksArr.splice(index, 1)

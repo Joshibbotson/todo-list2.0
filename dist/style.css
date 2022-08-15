@@ -100,6 +100,8 @@ button {
     padding: 0.5rem;
     border-radius: 10px;
     background: none;
+
+    cursor: pointer;
 }
 .nav-btn {
     color: white;

@@ -1,5 +1,6 @@
 import {
     deleteTask,
+    completeTask,
     createTaskDiv,
     editTaskInLocalStorage,
 } from "./inboxTodayWeekCompleted tabs"
@@ -50,7 +51,7 @@ export default class UI {
 
         tickOffBtn.addEventListener("click", e => {
             let i = e.target.id
-            return deleteTask(i, key, array)
+            return completeTask(i, key, array)
         })
 
         deleteBtn.addEventListener("click", e => {
@@ -106,7 +107,7 @@ export default class UI {
 
         tickOffBtn.addEventListener("click", e => {
             let i = e.target.id
-            return deleteTask(i, key, array)
+            return completeTask(i, key, array)
         })
 
         deleteBtn.addEventListener("click", e => {
