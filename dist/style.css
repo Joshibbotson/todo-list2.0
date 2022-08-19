@@ -300,7 +300,7 @@ input[type="date"] {
 
 .task-delete-btn {
     display: flex;
-    visibility: hidden;
+    visibility: visible;
     justify-content: flex-end;
     width: auto;
     color: firebrick;
@@ -308,13 +308,6 @@ input[type="date"] {
     border-radius: 10px;
 
     cursor: pointer;
-}
-
-.task-div:hover .task-delete-btn {
-    visibility: visible;
-}
-.task-div-completed:hover .task-delete-btn {
-    visibility: visible;
 }
 
 /* Media screen for desktop */
@@ -370,6 +363,26 @@ input[type="date"] {
     .task-div-completed:hover {
         background-color: var(--highlight-colour);
         color: var(--text-colour);
+    }
+
+    .task-delete-btn {
+        display: flex;
+        visibility: hidden;
+        justify-content: flex-end;
+        width: auto;
+        color: firebrick;
+        font-weight: 800;
+        border-radius: 10px;
+
+        cursor: pointer;
+    }
+
+    .task-div:hover .task-delete-btn {
+        visibility: visible;
+    }
+
+    .task-div-completed:hover .task-delete-btn {
+        visibility: visible;
     }
 
     .add-btn-main {
