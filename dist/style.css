@@ -211,10 +211,6 @@ main {
     font-weight: 600;
     color: var(--primary-colour);
 }
-.task-div:hover {
-    background-color: var(--highlight-colour);
-    color: var(--text-colour);
-}
 
 .task-div-completed {
     display: flex;
@@ -227,11 +223,6 @@ main {
     font-size: 1em;
     font-weight: 600;
     color: var(--completed-colour);
-}
-
-.task-div-completed:hover {
-    background-color: var(--highlight-colour);
-    color: var(--text-colour);
 }
 
 input[type="text"] {
@@ -371,6 +362,16 @@ input[type="date"] {
         margin-top: 2rem;
     }
 
+    .task-div:hover {
+        background-color: var(--highlight-colour);
+        color: var(--text-colour);
+    }
+
+    .task-div-completed:hover {
+        background-color: var(--highlight-colour);
+        color: var(--text-colour);
+    }
+
     .add-btn-main {
         display: flex;
         justify-content: center;
@@ -445,16 +446,8 @@ input[type="date"] {
         color: var(--textColour);
     }
 
-    .task-div:hover {
-        background-color: rgb(170, 170, 170);
-    }
-
     .task-div-completed {
         color: var(--completedTask);
-    }
-
-    .task-div-completed:hover {
-        background-color: rgb(170, 170, 170);
     }
 
     .edit-accept-btn {
@@ -495,5 +488,14 @@ input[type="date"] {
     .cancel-btn-main {
         background-color: rgb(66, 66, 66);
         border: 1px solid var(--nearBlack);
+    }
+
+    @media (min-width: 860px) {
+        .task-div-completed:hover {
+            background-color: rgb(170, 170, 170);
+        }
+        .task-div:hover {
+            background-color: rgb(170, 170, 170);
+        }
     }
 }
