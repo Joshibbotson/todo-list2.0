@@ -246,6 +246,27 @@ input[type="text"] {
     width: 50%;
 }
 
+.edit-accept-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--primary-colour);
+    width: 20%;
+    height: 2rem;
+
+    color: green;
+}
+.edit-cancel-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--primary-colour);
+    width: 20%;
+    height: 2rem;
+
+    color: firebrick;
+}
+
 .tick-off-btn {
     border-radius: 50%;
     background-color: var(--tertiary-colour);
@@ -434,6 +455,17 @@ input[type="date"] {
 
     .task-div-completed:hover {
         background-color: rgb(170, 170, 170);
+    }
+
+    .edit-accept-btn {
+        background-color: rgb(100, 100, 100);
+        border: 1px solid var(--nearBlack);
+        color: white;
+    }
+    .edit-cancel-btn {
+        background-color: rgb(66, 66, 66);
+        border: 1px solid var(--nearBlack);
+        color: white;
     }
 
     .nav-btn-active {

@@ -133,6 +133,8 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         const textInput = document.createElement("input")
         const inputDate = document.createElement("input")
         const deleteBtn = document.createElement("button")
+        const acceptbtn = document.createElement("button")
+        const cancelBtn = document.createElement("button")
         const newContainer = document.createElement("div")
         const existingContainer = document.getElementById(
             "dateAndDeleteContainer" + index
@@ -151,6 +153,11 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         inputDate.setAttribute("id", "editDateInput")
         inputDate.setAttribute("value", date)
 
+        acceptbtn.innerHTML = "&#10003"
+        acceptbtn.classList.add("edit-accept-btn")
+        cancelBtn.innerHTML = "&#10006;"
+        cancelBtn.classList.add("edit-cancel-btn")
+
         const div = document.getElementById(index)
 
         div.removeChild(target)
@@ -159,10 +166,38 @@ export function editTaskInLocalStorage(index, target, key, array, title, date) {
         div.appendChild(textInput)
         div.appendChild(newContainer)
         newContainer.appendChild(inputDate)
-        newContainer.appendChild(deleteBtn)
+        // newContainer.appendChild(deleteBtn)
+        newContainer.appendChild(cancelBtn)
+        newContainer.appendChild(acceptbtn)
 
         const textInputValue = document.getElementById("editTextInput")
         const dateInputValue = document.getElementById("editDateInput")
+
+        const end = textInput.value.length
+        textInput.setSelectionRange(end, end)
+        textInput.focus()
+
+        acceptbtn.addEventListener("click", e => {
+            return (
+                filterArrayOnEdit(
+                    tasksArr,
+                    index,
+                    title,
+                    date,
+                    textInputValue.value,
+                    dateInputValue.value
+                ),
+                getTaskFromLocalStorage(key, array)
+            )
+        })
+        cancelBtn.addEventListener("click", e => {
+            return (
+                (tasksArr[index].title = title),
+                (tasksArr[index].date = date),
+                localStorage.setItem(key, JSON.stringify(tasksArr)),
+                getTaskFromLocalStorage(key, array)
+            )
+        })
         div.addEventListener("keydown", e => {
             if (e.key === "Enter") {
                 return (

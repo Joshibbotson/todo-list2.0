@@ -62,6 +62,8 @@ export default class UI {
         p.addEventListener("click", e => {
             let i = e.target.parentElement.id
             let target = e.target
+            e.stopPropagation()
+
             return editTaskInLocalStorage(i, target, key, array, title, date)
         })
         createTaskDiv(key)
@@ -117,6 +119,7 @@ export default class UI {
         p.addEventListener("click", e => {
             let i = e.target.parentElement.id
             let target = e.target
+            e.stopPropagation()
             return editTaskInLocalStorage(i, target, key, array, title, date)
         })
     }
