@@ -119,9 +119,12 @@ button {
 }
 
 .open-add-task-button {
+    display: flex;
+    justify-content: center;
     font-family: var(--primary-font);
-    color: var(--primary-colour);
+    color: var(--text-colour);
     font-weight: 800;
+    background-color: var(--primary-colour);
 }
 
 .add-task-container {
@@ -453,6 +456,7 @@ input[type="date"] {
 
     .open-add-task-button {
         color: var(--textColour);
+        background-color: var(--nearBlack);
     }
 
     .task-div {
