@@ -110,6 +110,14 @@ button {
 
 .nav-btn-active {
     background-color: #38598b;
+    transition: all 500ms;
+}
+.nav-btn.nav-btn-active:hover {
+    background-color: #38598b;
+}
+.nav-btn:hover {
+    background-color: #38598b73;
+    transition: background-color 500ms;
 }
 
 .open-add-projects-button {
@@ -481,6 +489,16 @@ input[type="date"] {
     .nav-btn-active {
         background-color: rgb(200, 200, 200);
         color: var(--nearBlack);
+        transition: all 500ms;
+    }
+
+    .nav-btn:hover {
+        background-color: rgba(200, 200, 200, 0.529);
+        transition: background-color 500ms;
+    }
+
+    .nav-btn.nav-btn-active:hover {
+        background-color: rgb(200, 200, 200);
     }
 
     .add-task-container {
